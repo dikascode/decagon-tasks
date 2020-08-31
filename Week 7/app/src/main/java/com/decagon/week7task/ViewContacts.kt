@@ -37,10 +37,6 @@ class ViewContacts : AppCompatActivity() {
         fragmentTransaction.replace(R.id.read_frag, fragment)
         fragmentTransaction.commit()
 
-//        private fun setCurrentFragment(fragment : Fragment) = supportFragmentManager.beginTransaction().apply {
-//            replace(R.id.fl_wrapper, fragment)
-//            commit()
-//        }
     }
 
 

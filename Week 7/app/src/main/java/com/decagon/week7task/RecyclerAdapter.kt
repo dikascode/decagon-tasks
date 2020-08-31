@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.decagon.week7task.model.ModelContact
 import kotlinx.android.synthetic.main.layout_contact.view.*
 
-class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
+class RecyclerAdapter(private var contactListener: OnContactItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     /*
@@ -19,7 +19,7 @@ class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
     private var items: List<ModelContact> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return StudentHolder(
+        return ContactHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.layout_contact, parent, false)
         )
     }
@@ -30,7 +30,7 @@ class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is StudentHolder -> {
+            is ContactHolder -> {
                 holder.bind(items[position], contactListener)
             }
         }
@@ -42,7 +42,7 @@ class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
     }
 
     //View Holder Class for Students
-    class StudentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ContactHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //Initialize and Refer to IDs inside layout of RecyclerView Items
         private val firstName: TextView = itemView.tv_firstname
         private val phone: TextView = itemView.tv_phone
