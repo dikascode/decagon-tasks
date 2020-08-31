@@ -8,13 +8,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.week7task.DataSet.Companion.createDataSet
+import com.decagon.week7task.firebaseContacts.Firebase
 import com.decagon.week7task.model.ModelContact
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnContactItemClickList
          */
         private lateinit var recyclerView: RecyclerView
         private lateinit var recyclerAdapter: RecyclerAdapter
-        private  lateinit var fabButton : FloatingActionButton
+
         private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
         // Request code for READ_CONTACTS. It can be any number > 0.
@@ -34,25 +33,16 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnContactItemClickList
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
 
+            //Toolbar menu implementation
             toolbar = findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
 
             // Read and show the contacts
             showContacts()
 
-
-            //Initialize fabButton
-            fabButton = findViewById(R.id.fab_btn)
-
-            /*
-             * FAB onclick listener
-             */
-            fabButton.setOnClickListener {
-
-            }
-
         }
 
+    //Oncrate options for toolbar in main activity layout
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
@@ -63,7 +53,10 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnContactItemClickList
 
        when(id) {
            R.id.search -> Toast.makeText(this, "You clicked Search", Toast.LENGTH_LONG).show()
-           R.id.cloud -> Toast.makeText(this, "You clicked Cloud Contact", Toast.LENGTH_LONG).show()
+           R.id.cloud -> {
+               var intent = Intent(this, Firebase::class.java)
+               startActivity(intent)
+           }
            R.id.exit -> finish()
 
        }
@@ -76,10 +69,10 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnContactItemClickList
 
 
     /**
-     * Show the contacts in the ListView.
+     * Show the contacts in the RecyclerView.
      */
 
-    private fun showContacts(): Unit {
+    private fun showContacts() {
         // Check the SDK version and whether the permission is already granted or not.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
@@ -97,7 +90,7 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnContactItemClickList
                 recyclerView.layoutManager = LinearLayoutManager(this)
 
                 recyclerAdapter = RecyclerAdapter(this)
-                recycler_view?.adapter = recyclerAdapter
+                recyclerView?.adapter = recyclerAdapter
 
 
             //Submit Data to Adapter
@@ -117,7 +110,7 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnContactItemClickList
                 // Permission is granted
                 showContacts()
             } else {
-                var intent = Intent(this, PermitActivity::class.java)
+                val intent = Intent(this, PermitActivity::class.java)
                 startActivity(intent)
 
             }
