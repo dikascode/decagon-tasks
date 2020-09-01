@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.week7task.model.ModelContact
+import com.decagon.week7task.model.PhoneModelContact
 import kotlinx.android.synthetic.main.layout_contact.view.*
 
 class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
@@ -16,7 +17,7 @@ class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
         Declare dataset
         to be displayed in the list
     */
-    private var items: List<ModelContact> = ArrayList()
+    private var items: List<PhoneModelContact> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ContactHolder(
@@ -37,7 +38,7 @@ class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
     }
 
     //Submit list to RecyclerView Adapter
-    fun submitList(contactsList: List<ModelContact>) {
+    fun submitList(contactsList: List<PhoneModelContact>) {
         items = contactsList
     }
 
@@ -51,16 +52,16 @@ class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
             Bind method: responsible for taking individual contact object
             and binding it to the views in layout
          */
-        fun bind(modelContactCard: ModelContact, action: OnContactItemClickListener) {
-            firstName.text = modelContactCard.firstname
-            phone.text = modelContactCard.number
+        fun bind(modelContactCard: PhoneModelContact, action: OnContactItemClickListener) {
+            firstName.text = modelContactCard.fullName
+            phone.text = modelContactCard.phoneNumber
 
 
             //Listening post for a card clicked
             itemView.setOnClickListener {
                 var intent = Intent(it.context, ViewContacts::class.java)
-                intent.putExtra("FIRST_NAME", modelContactCard.firstname)
-                intent.putExtra("PHONE", modelContactCard.number)
+                intent.putExtra("FIRST_NAME", modelContactCard.fullName)
+                intent.putExtra("PHONE", modelContactCard.phoneNumber)
                 it.context.startActivity(intent)
 
                 action.onItemClicked(modelContactCard, adapterPosition)
@@ -73,6 +74,6 @@ class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
 
     //Interface for clickable item
     interface OnContactItemClickListener {
-        fun onItemClicked(item: ModelContact, position: Int)
+        fun onItemClicked(item: PhoneModelContact, position: Int)
     }
 }

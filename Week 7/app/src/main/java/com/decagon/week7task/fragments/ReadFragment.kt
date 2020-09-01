@@ -1,10 +1,9 @@
 package com.decagon.week7task.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.decagon.week7task.R
 import kotlinx.android.synthetic.main.fragment_read.*
@@ -33,6 +32,7 @@ class ReadFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         //Inflate the layout for this fragment
         var view: View = inflater.inflate(R.layout.fragment_read, container, false)
         //obtain fragment arguments from bundle
@@ -51,6 +51,7 @@ class ReadFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         /*
          *Instantiate another fragment to edit contact onclick of edit icon
          */
@@ -59,6 +60,7 @@ class ReadFragment : Fragment() {
             bundle.putString("FIRST_NAME", firstName)
             bundle.putString("PHONE", phone)
 
+            //Start new fragment
             val editFrag = EditFragment()
             editFrag.arguments = bundle
             activity!!.supportFragmentManager.beginTransaction()
@@ -69,5 +71,7 @@ class ReadFragment : Fragment() {
 
 
     }
+
+
 
 }

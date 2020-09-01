@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.decagon.week7task.DataSet.Companion.createDataSet
 import com.decagon.week7task.firebaseContacts.Firebase
 import com.decagon.week7task.model.ModelContact
+import com.decagon.week7task.model.PhoneModelContact
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -118,7 +119,7 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnContactItemClickList
     }
 
 
-    override fun onItemClicked(item: ModelContact, position: Int) {
+    override fun onItemClicked(item: PhoneModelContact, position: Int) {
 
     }
 

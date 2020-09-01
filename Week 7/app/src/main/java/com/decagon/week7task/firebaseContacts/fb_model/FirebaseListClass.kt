@@ -10,9 +10,9 @@ class FirebaseListClass {
             val list = ArrayList<ModelContact>()
 
             var contactList = arrayListOf<ModelContact>(
-                ModelContact("Oliver Juice", "08034567893"),
-                ModelContact("Emmanuel Olivia", "09087654321"),
-                ModelContact("Grace Temi", "0805098743")
+                ModelContact("","Oliver Juice", "08034567893", "dika@gmail.com"),
+                ModelContact("","Oliver Juice", "08034567893", "dika@gmail.com"),
+                ModelContact("","Oliver Juice", "08034567893", "dika@gmail.com")
             )
 
             list.addAll(contactList)

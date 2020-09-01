@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME
 import com.decagon.week7task.model.ModelContact
+import com.decagon.week7task.model.PhoneModelContact
 
 class DataSet {
 
@@ -13,10 +14,10 @@ class DataSet {
         lateinit var cursor: Cursor
 
         //Generate data and add to list
-        fun createDataSet(context: Context): ArrayList<ModelContact> {
-            val list = ArrayList<ModelContact>()
+        fun createDataSet(context: Context): ArrayList<PhoneModelContact> {
+            val list = ArrayList<PhoneModelContact>()
 
-            var contactList = arrayListOf<ModelContact>()
+            var contactList = arrayListOf<PhoneModelContact>()
 
             // Get the Cursor of all the contacts
             cursor = context?.contentResolver
@@ -32,10 +33,10 @@ class DataSet {
             cursor.moveToFirst()
 
             // Iterate through the cursor
-            while(cursor.moveToNext()) {
+            while (cursor.moveToNext()) {
                 // Get the contacts name and number
-                contactList. add(
-                    ModelContact(
+                contactList.add(
+                    PhoneModelContact(
                         cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
                         cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                     )

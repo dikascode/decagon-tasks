@@ -14,8 +14,7 @@ import kotlinx.android.synthetic.main.layout_fb_contact.view.*
 class FirebaseRecyclerAdapter(var contactListener: OnContactItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     /*
-     Declare dataset
-     to be displayed in the list
+     Items as Model Contact type
  */
     private var items: List<ModelContact> = ArrayList()
 
@@ -54,15 +53,15 @@ class FirebaseRecyclerAdapter(var contactListener: OnContactItemClickListener) :
          */
 
         fun bind(modelContactCard: ModelContact, action: OnContactItemClickListener) {
-            firstName.text = modelContactCard.firstname
-            phone.text = modelContactCard.number
+            firstName.text = modelContactCard.fullName
+            phone.text = modelContactCard.phoneNumber
 
 
             //Listening post for a card clicked
             itemView.setOnClickListener {
                 var intent = Intent(it.context, ViewContacts::class.java)
-                intent.putExtra("FIRST_NAME", modelContactCard.firstname)
-                intent.putExtra("PHONE", modelContactCard.number)
+                intent.putExtra("FIRST_NAME", modelContactCard.fullName)
+                intent.putExtra("PHONE", modelContactCard.phoneNumber)
                 it.context.startActivity(intent)
 
                 action.onItemClicked(modelContactCard, adapterPosition)

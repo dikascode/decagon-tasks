@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.EditFragment"
+    tools:context=".fragments.AddFragment"
     android:background="@color/colorPrimaryDark">
 
     <!-- TODO: Update blank fragment layout -->
@@ -34,7 +34,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/first_name_hint"
+        android:hint="First Name"
+        android:text="TextView"
         android:textColor="@android:color/white"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,29 +49,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/phone_number_hint"
+        android:hint="Phone Number"
+        android:text="TextView"
         android:textColor="@android:color/white"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_firstname" />
-
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/save_button_text"
-        android:background="@android:color/white"
-        android:textSize="26sp"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_phone" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

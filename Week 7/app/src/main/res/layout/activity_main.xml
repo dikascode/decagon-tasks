@@ -17,7 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:title="Contacts List"
-        app:logo="@drawable/menu_24"
         app:titleMarginStart="40dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
