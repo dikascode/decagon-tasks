@@ -18,7 +18,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Firebase Contact"
+        app:title="Contact"
         app:titleMarginStart="40dp" />
 
 
@@ -53,6 +53,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <!--Phone Vector Icon-->
+
+    <!--Number text View-->
     <ImageView
         android:id="@+id/iv_phone"
         android:layout_width="30dp"
@@ -63,7 +65,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-    <!--Number text View-->
+    <ImageView
+        android:id="@+id/iv_email"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_phone" />
+
     <TextView
         android:id="@+id/read_phone"
         android:layout_width="0dp"
@@ -71,7 +82,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
         android:textColor="@android:color/white"
         android:textSize="26sp"
         app:layout_constraintEnd_toStartOf="@+id/iv_msg"
@@ -79,7 +89,22 @@
         app:layout_constraintStart_toEndOf="@+id/iv_phone"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-    <!--    Message vector Icon-->
+    <!--Email text View-->
+    <TextView
+        android:id="@+id/read_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toStartOf="@+id/iv_msg"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_phone"
+        app:layout_constraintTop_toBottomOf="@+id/read_phone" />
+
+    <!--    Edit vector Icon-->
     <ImageView
         android:id="@+id/iv_msg"
         android:layout_width="30dp"

@@ -28,12 +28,16 @@ class EditFragment : Fragment() {
 
         val firstName = this.arguments?.getString("FIRST_NAME")
         val phone = this.arguments?.getString("PHONE")
+        val email = this.arguments?.getString("EMAIL")
 
         val etFirstName: EditText = view.findViewById(R.id.edit_firstname)
         val etPhone: EditText = view.findViewById(R.id.edit_phone)
+        val etEmail: EditText = view.findViewById(R.id.edit_email)
 
+        //Pass the initial value for each user contact
         etFirstName.setText(firstName)
         etPhone.setText(phone)
+        etEmail.setText(email)
         return view
 
     }

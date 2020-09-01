@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.decagon.week7task.fragments.ReadFragment
 import kotlinx.android.synthetic.main.fragment_read.*
 
-class ViewContacts : AppCompatActivity() {
+class ViewContact : AppCompatActivity() {
     //delayed but promising to initialize fragmentTransaction
     private lateinit var fragmentTransaction : FragmentTransaction
 
@@ -16,16 +16,22 @@ class ViewContacts : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_contacts)
 
-
+        //Get values from Intent
         val firstName = intent.getStringExtra("FIRST_NAME")
-        val lastName = intent.getStringExtra("LAST_NAME")
         val phone = intent.getStringExtra("PHONE")
+        val email = intent.getStringExtra("EMAIL")
 
-
+        //Setup bundle to pass data to fragment
         val bundle = Bundle()
         bundle.putString("FIRST_NAME", firstName)
-        bundle.putString("LAST_NAME", lastName)
-        bundle.putString("PHONE", phone.toString())
+        bundle.putString("PHONE", phone)
+
+        if (email == null) {
+            bundle.putString("EMAIL", email)
+        } else {
+            bundle.putString("EMAIL", "")
+        }
+
 
         //Initiate fragment to read single data
         var fragment: Fragment

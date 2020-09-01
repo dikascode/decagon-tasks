@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.decagon.week7task.model.ModelContact
 import com.decagon.week7task.model.PhoneModelContact
 import kotlinx.android.synthetic.main.layout_contact.view.*
 
@@ -59,7 +58,7 @@ class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
 
             //Listening post for a card clicked
             itemView.setOnClickListener {
-                var intent = Intent(it.context, ViewContacts::class.java)
+                var intent = Intent(it.context, ViewContact::class.java)
                 intent.putExtra("FIRST_NAME", modelContactCard.fullName)
                 intent.putExtra("PHONE", modelContactCard.phoneNumber)
                 it.context.startActivity(intent)
