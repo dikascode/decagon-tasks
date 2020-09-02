@@ -5,71 +5,21 @@ import android.database.Cursor
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME
 import com.decagon.week7task.model.ModelContact
+import com.decagon.week7task.model.PhoneModelContact
 
 class DataSet {
 
     companion object {
+        //Declare cursor
         lateinit var cursor: Cursor
 
         //Generate data and add to list
-        fun createDataSet(context: Context): ArrayList<ModelContact> {
-            val list = ArrayList<ModelContact>()
+        fun createDataSet(context: Context): ArrayList<PhoneModelContact> {
+            val list = ArrayList<PhoneModelContact>()
 
-            var contactList = arrayListOf<ModelContact>(
-                ModelContact(
-                    "Idefun",
-                    "9908"
-                ),
+            var contactList = arrayListOf<PhoneModelContact>()
 
-                ModelContact(
-                    "Deepak",
-                    "88745"
-                ),
-
-                ModelContact(
-                    "Sylvia",
-                    "756383"
-
-                ),
-
-                ModelContact(
-                    "Stone Ebuka Andy",
-                    "99843"
-                ),
-                ModelContact(
-                    "Deepak",
-                    "88745"
-                ),
-
-                ModelContact(
-                    "Sylvia",
-                    "756383"
-
-                ),
-
-                ModelContact(
-                    "Stone Ebuka Andy",
-                    "99843"
-                ),
-
-                ModelContact(
-                    "Deepak",
-                    "88745"
-                ),
-
-                ModelContact(
-                    "Sylvia",
-                    "756383"
-
-                ),
-
-                ModelContact(
-                    "Stone Ebuka Andy",
-                    "99843"
-                )
-
-            )
-
+            // Get the Cursor of all the contacts
             cursor = context?.contentResolver
                 .query(
                     ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -79,16 +29,20 @@ class DataSet {
                     ContactsContract.Contacts.DISPLAY_NAME
                 )!!
 
+            //Move cursor to first
             cursor.moveToFirst()
 
-            while(cursor.moveToNext()) {
-                contactList. add(
-                    ModelContact(
+            // Iterate through the cursor
+            while (cursor.moveToNext()) {
+                // Get the contacts name and number
+                contactList.add(
+                    PhoneModelContact(
                         cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
                         cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                     )
                 )
             }
+
             list.addAll(contactList)
 
             return list

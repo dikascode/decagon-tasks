@@ -2,4 +2,10 @@
     <string name="app_name">Week 7 Task</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="permit_btn">Request for Permission</string>
+    <string name="denied_text">Permission Denied</string>
+    <string name="first_name_hint">Full Name</string>
+    <string name="phone_number_hint">Phone Number</string>
+    <string name="phone_email_hint">Email</string>
+    <string name="save_button_text">Save</string>
 </resources>
