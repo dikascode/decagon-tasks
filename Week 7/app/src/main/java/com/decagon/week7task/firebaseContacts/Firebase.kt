@@ -1,8 +1,5 @@
 package com.decagon.week7task.firebaseContacts
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -13,16 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.decagon.week7task.DataSet
 import com.decagon.week7task.R
-import com.decagon.week7task.RecyclerAdapter
 import com.decagon.week7task.firebaseContacts.adapter.FirebaseRecyclerAdapter
 import com.decagon.week7task.fragments.AddFragment
-import com.decagon.week7task.fragments.ReadFragment
 import com.decagon.week7task.model.ModelContact
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_firebase.*
 
 class Firebase : AppCompatActivity() {
     /*
@@ -34,7 +27,7 @@ class Firebase : AppCompatActivity() {
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
     private lateinit var fabButton: FloatingActionButton
     private lateinit var fragmentTransaction: FragmentTransaction
-    lateinit var firebaseContacts: DatabaseReference
+    lateinit var firebaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,10 +58,7 @@ class Firebase : AppCompatActivity() {
 
             //Hide FAB button
             fabButton.visibility = View.GONE
-
         }
-
-
     }
 
     override fun onStart() {
@@ -122,9 +112,9 @@ class Firebase : AppCompatActivity() {
         /*
          * Instantiate firebase Database reference
          */
-        firebaseContacts = FirebaseDatabase.getInstance().getReference("contacts")
+        firebaseReference = FirebaseDatabase.getInstance().getReference("contacts")
 
-        firebaseContacts.addValueEventListener(object : ValueEventListener {
+        firebaseReference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
             }

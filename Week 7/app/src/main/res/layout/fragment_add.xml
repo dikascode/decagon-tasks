@@ -9,6 +9,8 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <!-- TODO: Update blank fragment layout -->
+
 
     <ImageView
         android:id="@+id/iv_edit"
@@ -27,6 +29,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="283dp" />
 
+    <!--    Full name TextInput field-->
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edit_firstname"
         android:layout_width="0dp"
@@ -34,13 +37,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Full Name"
+        android:hint="@string/first_name_hint"
         android:textColor="@android:color/white"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_edit" />
 
+    <!--    Phone TextInput field-->
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edit_phone"
         android:layout_width="0dp"
@@ -48,13 +52,45 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Phone Number"
+        android:hint="@string/phone_number_hint"
         android:textColor="@android:color/white"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_firstname" />
+
+    <!--    Email TextInput field-->
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/phone_email_hint"
+        android:textColor="@android:color/white"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_phone" />
+
+    <Button
+        android:id="@+id/update_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/white"
+        android:text="@string/save_button_text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_email" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

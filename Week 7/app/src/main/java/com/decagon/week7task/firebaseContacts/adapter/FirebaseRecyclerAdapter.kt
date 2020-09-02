@@ -1,6 +1,8 @@
 package com.decagon.week7task.firebaseContacts.adapter
 
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +13,9 @@ import com.decagon.week7task.ViewContact
 import com.decagon.week7task.firebaseContacts.Firebase
 import com.decagon.week7task.model.ModelContact
 import kotlinx.android.synthetic.main.layout_fb_contact.view.*
+import kotlin.math.log
 
 class FirebaseRecyclerAdapter(val context: Firebase, private val contactsList: List<ModelContact>) : RecyclerView.Adapter<FirebaseRecyclerAdapter.ViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.layout_fb_contact, parent, false)
@@ -28,7 +30,6 @@ class FirebaseRecyclerAdapter(val context: Firebase, private val contactsList: L
         val item = contactsList[position]
         holder.fullName.text = item.fullName
         holder.phone.text = item.phoneNumber
-
         holder.bind(item, position)
 
     }
@@ -47,6 +48,10 @@ class FirebaseRecyclerAdapter(val context: Firebase, private val contactsList: L
                 intent.putExtra("FIRST_NAME", modelContactCard.fullName)
                 intent.putExtra("PHONE", modelContactCard.phoneNumber)
                 intent.putExtra("EMAIL", modelContactCard.email)
+                intent.putExtra("ID", modelContactCard.id)
+
+                Log.i(TAG, "bind: ${modelContactCard.id}")
+                Log.i(TAG, "bind: ${modelContactCard.fullName}")
                 it.context.startActivity(intent)
 
             }

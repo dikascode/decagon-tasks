@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_read.*
 
 class ViewContact : AppCompatActivity() {
     //delayed but promising to initialize fragmentTransaction
-    private lateinit var fragmentTransaction : FragmentTransaction
+    private lateinit var fragmentTransaction: FragmentTransaction
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,16 +20,18 @@ class ViewContact : AppCompatActivity() {
         val firstName = intent.getStringExtra("FIRST_NAME")
         val phone = intent.getStringExtra("PHONE")
         val email = intent.getStringExtra("EMAIL")
+        val contactId = intent.getStringExtra("ID")
 
         //Setup bundle to pass data to fragment
         val bundle = Bundle()
         bundle.putString("FIRST_NAME", firstName)
         bundle.putString("PHONE", phone)
+        bundle.putString("ID", contactId)
 
         if (email == null) {
-            bundle.putString("EMAIL", email)
-        } else {
             bundle.putString("EMAIL", "")
+        } else {
+            bundle.putString("EMAIL", email)
         }
 
 
@@ -39,8 +41,7 @@ class ViewContact : AppCompatActivity() {
         fragment = ReadFragment()
         // set Fragment class Arguments
         fragment.arguments = bundle
-        fragmentTransaction.replace(R.id.read_frag, fragment)
-        fragmentTransaction.commit()
+        fragmentTransaction.add(R.id.read_frag, fragment).addToBackStack(null).commit()
 
     }
 

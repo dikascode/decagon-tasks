@@ -7,7 +7,6 @@ data class ModelContact(
     var fullName: String = "",
     var phoneNumber: String = "",
     var email: String = "",
-    @get: Exclude
     var id: String? = null
 ) {
 

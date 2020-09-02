@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnContactItemClickList
        when(id) {
            R.id.search -> Toast.makeText(this, "You clicked Search", Toast.LENGTH_LONG).show()
            R.id.cloud -> {
+               //Go to activity showing contacts from firebase onclick of toolbar item
                var intent = Intent(this, Firebase::class.java)
                startActivity(intent)
            }

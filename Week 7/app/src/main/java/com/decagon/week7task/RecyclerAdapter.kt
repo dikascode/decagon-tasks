@@ -57,14 +57,14 @@ class RecyclerAdapter(var contactListener: OnContactItemClickListener) :
 
 
             //Listening post for a card clicked
-            itemView.setOnClickListener {
-                var intent = Intent(it.context, ViewContact::class.java)
-                intent.putExtra("FIRST_NAME", modelContactCard.fullName)
-                intent.putExtra("PHONE", modelContactCard.phoneNumber)
-                it.context.startActivity(intent)
-
-                action.onItemClicked(modelContactCard, adapterPosition)
-            }
+//            itemView.setOnClickListener {
+//                var intent = Intent(it.context, ViewContact::class.java)
+//                intent.putExtra("FIRST_NAME", modelContactCard.fullName)
+//                intent.putExtra("PHONE", modelContactCard.phoneNumber)
+//                it.context.startActivity(intent)
+//
+//                action.onItemClicked(modelContactCard, adapterPosition)
+//            }
         }
 
 

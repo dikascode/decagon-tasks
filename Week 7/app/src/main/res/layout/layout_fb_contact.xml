@@ -16,6 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="70dp">
 
+
+<!--Full name firebase textview-->
         <TextView
             android:id="@+id/tv_fb_firstname"
             android:layout_width="0dp"
@@ -52,6 +54,8 @@
             app:layout_constraintTop_toTopOf="@+id/tv_fb_firstname"
             app:srcCompat="@drawable/closeup176" />
 
+
+        <!--Phone firebase textview-->
         <TextView
             android:id="@+id/tv_fb_phone"
             android:layout_width="308dp"
