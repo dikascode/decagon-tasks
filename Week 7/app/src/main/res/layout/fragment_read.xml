@@ -4,22 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    tools:context=".fragments.ReadFragment">
+    tools:context=".fragments.ReadFragment"
+    android:background="@color/colorPrimaryDark">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <!--    Toolbar-->
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/read_fb_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Contact"
-        app:titleMarginStart="40dp" />
 
 
     <ImageView
@@ -29,7 +17,7 @@
         android:src="@drawable/closeup176"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/read_fb_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.125" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -37,91 +25,65 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="302dp" />
+        app:layout_constraintGuide_begin="283dp" />
 
-    <!--    Name TextView-->
     <TextView
         android:id="@+id/read_firstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="28dp"
         android:text="TextView"
         android:textColor="@android:color/black"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!--Phone Vector Icon-->
+<!--    <TextView-->
+<!--        android:id="@+id/read_lastname"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="12dp"-->
+<!--        android:layout_marginBottom="28dp"-->
+<!--        android:text="TextView"-->
+<!--        android:textColor="@android:color/black"-->
+<!--        android:textSize="26sp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/guideline2"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/read_firstname"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/read_firstname"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
     <ImageView
         android:id="@+id/iv_phone"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="28dp"
         android:src="@drawable/call_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-    <ImageView
-        android:id="@+id/iv_email"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_phone" />
-
-    <!--Number text View-->
     <TextView
         android:id="@+id/read_phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="26dp"
         android:layout_marginEnd="8dp"
+        android:text="TextView"
         android:textColor="@android:color/white"
         android:textSize="26sp"
         app:layout_constraintEnd_toStartOf="@+id/iv_msg"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_phone"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-    <!--Email text View-->
-    <TextView
-        android:id="@+id/read_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:textColor="@android:color/white"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toStartOf="@+id/iv_msg"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/iv_phone"
-        app:layout_constraintTop_toBottomOf="@+id/read_phone" />
-
-    <!--    Edit vector Icon-->
     <ImageView
         android:id="@+id/iv_msg"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="28dp"
-        android:src="@drawable/edit_24"
+        android:src="@drawable/message_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_phone" />
-
-    <ImageView
-        android:id="@+id/iv_delete"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        android:src="@drawable/delete_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/read_fb_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

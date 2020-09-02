@@ -7,14 +7,14 @@
     android:layout_marginBottom="2dp"
     android:layout_marginTop="2dp"
     app:cardCornerRadius="2dp"
+    app:cardElevation="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="4dp"
     app:cardPreventCornerOverlap="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_layout"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_firstname"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingLeft="20dp"
-            android:text=""
+            android:text="TextView"
             android:textAlignment="viewStart"
             android:textColor="@android:color/black"
             android:textSize="24sp"
@@ -56,16 +56,14 @@
             android:id="@+id/tv_phone"
             android:layout_width="308dp"
             android:layout_height="29dp"
-            android:layout_marginBottom="8dp"
             android:paddingLeft="20dp"
             android:paddingBottom="2dp"
-            android:text=""
+            android:text="TextView"
             android:textAlignment="viewStart"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_firstname" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
