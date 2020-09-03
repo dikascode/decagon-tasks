@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary"
     tools:context=".fragments.ReadFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -19,14 +19,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Contact"
+        app:titleTextColor="@android:color/black"
         app:titleMarginStart="40dp" />
 
 
     <ImageView
         android:id="@+id/iv_edit"
-        android:layout_width="0dp"
-        android:layout_height="275dp"
-        android:src="@drawable/closeup176"
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:background="@color/colorPrimaryDark"
+        android:contentDescription="@string/contactImage"
+        android:src="@drawable/ic_baseline_person_24"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/read_fb_toolbar"
@@ -37,42 +40,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="302dp" />
+        app:layout_constraintGuide_begin="327dp" />
 
     <!--    Name TextView-->
+
+    <!--Phone Vector Icon-->
+
     <TextView
         android:id="@+id/read_firstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginBottom="4dp"
-        android:text="TextView"
+        android:fontFamily="serif"
+        android:text="Full Name"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.637" />
 
-    <!--Phone Vector Icon-->
-
-    <ImageView
+    <ImageButton
         android:id="@+id/iv_phone"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_height="40dp"
         android:layout_marginStart="28dp"
+        android:elevation="3dp"
         android:layout_marginTop="48dp"
+        android:clickable="true"
+        android:contentDescription="@string/callButton"
+        android:focusable="true"
         android:src="@drawable/call_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <ImageView
-        android:id="@+id/iv_email"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_phone" />
 
     <!--Number text View-->
     <TextView
@@ -82,8 +85,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="8dp"
-        android:textColor="@android:color/white"
         android:textSize="26sp"
+        android:text="08029602651"
         app:layout_constraintEnd_toStartOf="@+id/iv_msg"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_phone"
@@ -97,19 +100,22 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:textColor="@android:color/white"
-        android:textSize="26sp"
+        android:textSize="24sp"
+        android:text="something@gmail.com"
         app:layout_constraintEnd_toStartOf="@+id/iv_msg"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_phone"
         app:layout_constraintTop_toBottomOf="@+id/read_phone" />
 
     <!--    Edit vector Icon-->
-    <ImageView
+    <ImageButton
         android:id="@+id/iv_msg"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:layout_marginEnd="28dp"
+        android:elevation="3dp"
+        android:contentDescription="@string/edit_button"
         android:src="@drawable/edit_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_phone" />
@@ -120,8 +126,24 @@
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="36dp"
+        android:contentDescription="@string/delete_button"
         android:src="@drawable/delete_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/read_fb_toolbar" />
+
+    <ImageButton
+        android:id="@+id/shareButton"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="28dp"
+        android:elevation="3dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:contentDescription="@string/share_button"
+        android:src="@drawable/share_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_msg" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

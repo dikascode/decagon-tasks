@@ -52,30 +52,39 @@ class EditFragment : Fragment() {
         //Update Contact
         buttonUpdate.setOnClickListener {
 
-            updateContact(
-                contactId!!,
-                etFullName.text.toString(),
-                etPhone.text.toString(),
-                etEmail.text.toString()
-            )
+            if (etFullName.text.trim().isEmpty() || etPhone.text.trim().isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Name and phone fields cannot be empty",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                updateContact(
+                    contactId!!,
+                    etFullName.text.toString(),
+                    etPhone.text.toString(),
+                    etEmail.text.toString()
+                )
 
-            //Pass variables using Bundle to next Fragment
-            val bundle = Bundle()
-            bundle.putString("FIRST_NAME", etFullName.text.toString())
-            bundle.putString("PHONE", etPhone.text.toString())
-            bundle.putString("EMAIL", etEmail.text.toString())
-            bundle.putString("ID", contactId)
+                //Pass variables using Bundle to next Fragment
+                val bundle = Bundle()
+                bundle.putString("FIRST_NAME", etFullName.text.toString())
+                bundle.putString("PHONE", etPhone.text.toString())
+                bundle.putString("EMAIL", etEmail.text.toString())
+                bundle.putString("ID", contactId)
 
-            //remove fragment from stack
+                //remove fragment from stack
 //            fragmentManager?.popBackStack()
 
-            //Start new fragment
-            val readFrag = ReadFragment()
-            readFrag.arguments = bundle
-            activity!!.supportFragmentManager.beginTransaction()
-                .add(R.id.read_frag, readFrag, "readFragment")
-                .addToBackStack(null)
-                .commit()
+                //Start new fragment
+                val readFrag = ReadFragment()
+                readFrag.arguments = bundle
+                activity!!.supportFragmentManager.beginTransaction()
+                    .add(R.id.read_frag, readFrag, "readFragment")
+                    .addToBackStack(null)
+                    .commit()
+            }
+
         }
 
         return view
@@ -96,9 +105,10 @@ class EditFragment : Fragment() {
             id = id
         )
 
-        if(id != "null"){
+        if (id != "null") {
             firebaseReference.setValue(contact)
-            Toast.makeText(requireContext(), "Contact Successfully Updated $id", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Contact Successfully Updated $id", Toast.LENGTH_LONG)
+                .show()
             return true
         }
 

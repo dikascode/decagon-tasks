@@ -49,32 +49,20 @@ class Firebase : AppCompatActivity() {
          */
         fabButton.setOnClickListener {
             //Create Add contact fragment
-            var fragment: Fragment
-            fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragment = AddFragment()
-            fragmentTransaction.add(R.id.firebase_frag, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-
-            //Hide FAB button
-            fabButton.visibility = View.GONE
+            addReadFragment()
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun addReadFragment() {
+        var fragment: Fragment
+        fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragment = AddFragment()
+        fragmentTransaction.add(R.id.firebase_frag, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
 
-        if (fabButton.visibility == View.GONE) {
-            fabButton.visibility = View.VISIBLE
-        }
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        //Show FAB button
-        if (fabButton.visibility == View.GONE) {
-            fabButton.visibility = View.VISIBLE
-        }
+        //Hide FAB button
+        fabButton.visibility = View.GONE
     }
 
 
@@ -88,9 +76,10 @@ class Firebase : AppCompatActivity() {
         var id = item.itemId
 
         when (id) {
-            R.id.search -> Toast.makeText(this, "You clicked Search", Toast.LENGTH_LONG).show()
-            R.id.share -> Toast.makeText(this, "You clicked Share", Toast.LENGTH_LONG).show()
             R.id.exit -> finish()
+            R.id.add -> {
+                addReadFragment()
+            }
 
         }
         return true

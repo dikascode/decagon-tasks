@@ -4,15 +4,14 @@
     <item
         android:title="Cloud Contacts"
         android:id="@+id/cloud"
-        android:icon="@drawable/cloud_contact"
         app:showAsAction="always"
         />
 
-    <item
-        android:title="Search"
-        android:id="@+id/search"
-        android:icon="@drawable/search_24"
-        app:showAsAction="always"/>
+<!--    <item-->
+<!--        android:title="Search"-->
+<!--        android:id="@+id/search"-->
+<!--        android:icon="@drawable/search_24"-->
+<!--        app:showAsAction="always"/>-->
 
     <item
         android:title="Exit"

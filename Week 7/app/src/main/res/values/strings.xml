@@ -8,4 +8,11 @@
     <string name="phone_number_hint">Phone Number</string>
     <string name="phone_email_hint">Email</string>
     <string name="save_button_text">Save</string>
+    <string name="contactImage">contact Image</string>
+    <string name="callButton">call button</string>
+    <string name="textview">TextView</string>
+    <string name="edit_button">edit Button</string>
+    <string name="delete_button">delete Button</string>
+    <string name="share_button">share Button</string>
+    <string name="person_head">person Head</string>
 </resources>

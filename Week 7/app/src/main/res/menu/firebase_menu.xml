@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="Share"
-        android:id="@+id/share"
-        android:icon="@drawable/share_24"
+        android:title="Add Contact"
+        android:id="@+id/add"
+        android:icon="@drawable/add_24"
         app:showAsAction="always"
         />
 
-    <item
-        android:title="Search"
-        android:id="@+id/search"
-        android:icon="@drawable/search_24"
-        app:showAsAction="always"/>
+<!--    <item-->
+<!--        android:title="Search"-->
+<!--        android:id="@+id/search"-->
+<!--        android:icon="@drawable/search_24"-->
+<!--        app:showAsAction="always"/>-->
 
     <item
         android:title="Exit"

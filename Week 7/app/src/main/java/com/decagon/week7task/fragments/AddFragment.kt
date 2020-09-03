@@ -1,6 +1,7 @@
 package com.decagon.week7task.fragments
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.decagon.week7task.R
+import com.decagon.week7task.firebaseContacts.Firebase
 import com.decagon.week7task.model.ModelContact
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.FirebaseDatabase
@@ -51,49 +53,64 @@ class AddFragment : Fragment() {
         val dbRef = firebaseDB.getReference("contacts")
 
         saveButton.setOnClickListener {
-            val fullName = etFullName.text.toString()
-            val phoneNumber = etPhone.text.toString()
-            val email = etEmail.text.toString()
+            val fullName = etFullName.text.toString().trim()
+            val phoneNumber = etPhone.text.toString().trim()
+            val email = etEmail.text.toString().trim()
 
-            //Get unique key for each upload
-            val id = dbRef.push().key
-            /**
-             *Add contact to firebase database
-             */
-            contact = ModelContact(
-                fullName = fullName,
-                phoneNumber = phoneNumber,
-                email = email,
-                id = id
-            )
-            if (id != null) {
-                dbRef.child(id).setValue(contact)
+            if (fullName.isEmpty() || phoneNumber.isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Name and phone fields cannot be empty",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                //Get unique key for each upload
+                val id = dbRef.push().key
+                /**
+                 *Add contact to firebase database
+                 */
+                contact = ModelContact(
+                    fullName = fullName,
+                    phoneNumber = phoneNumber,
+                    email = email,
+                    id = id
+                )
+                if (id != null) {
+                    dbRef.child(id).setValue(contact)
+                }
+
+                //Display Toast if successful
+                Toast.makeText(requireContext(), "Contact Successfully Added", Toast.LENGTH_LONG)
+                    .show()
+
+                //Pass variables using Bundle to next Fragment
+                val bundle = Bundle()
+                bundle.putString("FIRST_NAME", fullName)
+                bundle.putString("PHONE", phoneNumber)
+                bundle.putString("EMAIL", email)
+                bundle.putString("ID", id)
+
+//            Log.i(ContentValues.TAG, "bind: ID $id")
+//            Log.i(ContentValues.TAG, "bind: fullname: $fullName")
+
+                //remove fragment from stack
+                fragmentManager?.popBackStack()
+
+                if (fragmentManager?.popBackStackImmediate()!!) {
+                    var intent = Intent(context, Firebase::class.java)
+                    startActivity(intent)
+                }
+
+
+                //Start new fragment
+                val fragment = ReadFragment()
+                fragment.arguments = bundle
+                activity!!.supportFragmentManager.beginTransaction()
+                    .replace(R.id.firebase_frag, fragment, "readFragment")
+                    .addToBackStack(null)
+                    .commit()
             }
 
-            //Display Toast if successful
-            Toast.makeText(requireContext(), "Contact Successfully Added", Toast.LENGTH_LONG).show()
-
-            //Pass variables using Bundle to next Fragment
-            val bundle = Bundle()
-            bundle.putString("FIRST_NAME", fullName)
-            bundle.putString("PHONE", phoneNumber)
-            bundle.putString("EMAIL", email)
-            bundle.putString("ID", id)
-
-            Log.i(ContentValues.TAG, "bind: ID $id")
-            Log.i(ContentValues.TAG, "bind: fullname: $fullName")
-
-           //remove fragment from stack
-            fragmentManager?.popBackStack()
-
-
-           //Start new fragment
-            val fragment = ReadFragment()
-            fragment.arguments = bundle
-            activity!!.supportFragmentManager.beginTransaction()
-                .replace(R.id.firebase_frag, fragment, "readFragment")
-                .addToBackStack(null)
-                .commit()
         }
         return view
     }

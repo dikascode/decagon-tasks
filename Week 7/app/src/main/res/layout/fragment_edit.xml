@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.EditFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimary">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -14,9 +14,11 @@
         android:id="@+id/iv_edit"
         android:layout_width="0dp"
         android:layout_height="275dp"
-        android:src="@drawable/closeup176"
+        android:background="@color/colorAccent"
+        android:src="@drawable/ic_baseline_person_24"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.125" />
 
@@ -36,7 +38,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/first_name_hint"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +53,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/phone_number_hint"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -67,7 +69,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/phone_email_hint"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -81,9 +83,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@android:color/white"
+        android:background="@color/colorAccent"
         android:text="@string/save_button_text"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@android:color/widget_edittext_dark"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

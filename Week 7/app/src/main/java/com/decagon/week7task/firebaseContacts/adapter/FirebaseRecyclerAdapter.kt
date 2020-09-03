@@ -36,13 +36,18 @@ class FirebaseRecyclerAdapter(val context: Firebase, private val contactsList: L
 
 
     //View Holder Class for contacts
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         //Initialize and Refer to IDs inside layout of RecyclerView Items
+
         val fullName: TextView = itemView.tv_fb_firstname
         val phone: TextView = itemView.tv_fb_phone
 
         fun bind(modelContactCard: ModelContact, position: Int) {
+
             //Listening post for a card clicked
+
             itemView.setOnClickListener {
                 var intent = Intent(it.context, ViewContact::class.java)
                 intent.putExtra("FIRST_NAME", modelContactCard.fullName)

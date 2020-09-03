@@ -1,8 +1,12 @@
 package com.decagon.week7task.fragments
 
+import android.Manifest
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.Intent.ACTION_CALL
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -10,6 +14,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.decagon.week7task.R
 import com.decagon.week7task.firebaseContacts.Firebase
@@ -52,8 +58,8 @@ class ReadFragment() : Fragment() {
         email = this.arguments?.getString("EMAIL").toString()
         contactId = this.arguments?.getString("ID").toString()
 
-        Log.i(TAG, "bind: id: $contactId")
-        Log.i(TAG, "bind: fullName: $fullName")
+//        Log.i(TAG, "bind: id: $contactId")
+//        Log.i(TAG, "bind: fullName: $fullName")
 
         //Initialize variables to view components
         tvFirstName = view.findViewById(R.id.read_firstname)
@@ -88,9 +94,6 @@ class ReadFragment() : Fragment() {
             bundle.putString("EMAIL", email)
             bundle.putString("ID", contactId)
 
-            //remove fragment from stack
-//            activity!!.supportFragmentManager.popBackStack()
-
             //Start new fragment
             val editFrag = EditFragment()
             editFrag.arguments = bundle
@@ -100,17 +103,73 @@ class ReadFragment() : Fragment() {
                 .commit()
         }
 
+        //Share contact on click og share button
+        shareButton.setOnClickListener {
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "$fullName \n $phoneNumber \n $email")
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+        }
 
+        //Call contact on click of icon
+        iv_phone.setOnClickListener {
+            makeCall()
+        }
+    }
+
+    /*
+    * Call logic
+     */
+    private fun makeCall() {
+        val hasCallPermission =
+            context?.let {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.CALL_PHONE
+                )
+            } == PackageManager.PERMISSION_GRANTED
+        if (!hasCallPermission) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.CALL_PHONE), 0
+            )
+        } else {
+            val phoneNumber = tvPhone.text
+            Intent(ACTION_CALL).apply {
+                this.data = Uri.fromParts("tel", phoneNumber.toString(), null)
+                startActivity(this)
+            }
+        }
     }
 
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 0) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makeCall()
+            }
+        }
+    }
 
+
+    /*
+    * Delete contact logic
+     */
     private fun deleteContact(id: String): Boolean {
         firebaseReference = FirebaseDatabase.getInstance().getReference("contacts").child(id)
 
-        if(id != "null"){
+        if (id != "null") {
             firebaseReference.removeValue()
-            Toast.makeText(requireContext(), "Contact Successfully Deleted", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Contact Successfully Deleted", Toast.LENGTH_LONG)
+                .show()
             //Go to firebase activity after deleting successfully
             var intent = Intent(context, Firebase::class.java)
             startActivity(intent)
@@ -119,7 +178,6 @@ class ReadFragment() : Fragment() {
 
         return false
     }
-
 
 
 }
