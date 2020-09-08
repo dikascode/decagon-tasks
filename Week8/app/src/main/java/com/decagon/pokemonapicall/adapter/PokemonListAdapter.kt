@@ -45,7 +45,8 @@ class PokemonListAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val id = getPokemonId(pokemonList[position].url)
-        Glide.with(context).load("https://pokeres.bastionbot.org/images/pokemon/$id.png")
+        val imageUrl = "https://pokeres.bastionbot.org/images/pokemon/$id.png"
+        Glide.with(context).load(imageUrl)
             .into(holder.img_pokemon)
         holder.text_pokemon.text = pokemonList[position].name
 //        Log.i(TAG, "onBindViewHolder: ${holder.text_pokemon}")
@@ -53,6 +54,7 @@ class PokemonListAdapter(
         holder.card_view.setOnClickListener { it ->
 //            Toast.makeText(it.context, "${pokemonList[position].name}", Toast.LENGTH_SHORT).show()
                 intent = Intent(it.context, SinglePokemonActivity::class.java)
+                intent.putExtra("IMAGE_URL", imageUrl)
                 intent.putExtra("POKEMON_ID", id)
                 it.context.startActivity(intent)
         }
