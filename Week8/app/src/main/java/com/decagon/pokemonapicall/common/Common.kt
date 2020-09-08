@@ -4,8 +4,11 @@ import com.decagon.pokemonapicall.`interface`.RetrofitService
 import com.decagon.pokemonapicall.retrofit.RetrofitClient
 
 object Common {
+    /**
+     * Set up base url for GET
+     */
     private const val BASE_URL = "https://pokeapi.co/api/v2/"
 
     val retrofitService: RetrofitService
-    get() = RetrofitClient.getClient(BASE_URL).create(RetrofitService::class.java)
+        get() = RetrofitClient.getClient(BASE_URL).create(RetrofitService::class.java)
 }

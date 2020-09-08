@@ -7,6 +7,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface RetrofitService {
+    /**
+     * Interface for retrofit REST operations
+     */
     @GET("pokemon")
     fun getPokemonList(): Call<AllPokemon>
 

@@ -1,5 +1,6 @@
 package com.decagon.pokemonapicall.model
 
+
 data class AllPokemon (
    val count: Int,
    val next: String?,

@@ -1,10 +1,11 @@
-package com.decagon.pokemonapicall
+package com.decagon.pokemonapicall.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.decagon.pokemonapicall.R
 import com.decagon.pokemonapicall.`interface`.RetrofitService
 import com.decagon.pokemonapicall.common.Common
 import com.decagon.pokemonapicall.model.PokemonDetials
@@ -14,12 +15,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SinglePokemonActivity : AppCompatActivity() {
+
     lateinit var mService: RetrofitService
     lateinit var pokemon_textView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pokemon_details)
 
+        //Initialize retrofit service
         mService = Common.retrofitService
         pokemon_textView = findViewById(R.id.pokemon_tv)
 
@@ -27,7 +31,9 @@ class SinglePokemonActivity : AppCompatActivity() {
         getSinglePokemonDetails()
     }
 
-
+    /**
+     * Call details for a single pokemon
+     */
     private fun getSinglePokemonDetails() {
         //Get Unique Id from intent
         val pokemonId = intent.getStringExtra("POKEMON_ID")

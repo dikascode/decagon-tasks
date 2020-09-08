@@ -1,30 +1,18 @@
 package com.decagon.pokemonapicall.adapter
 
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.decagon.pokemonapicall.MainActivity
 import com.decagon.pokemonapicall.R
-import com.decagon.pokemonapicall.SinglePokemonActivity
-import com.decagon.pokemonapicall.SinglePokemonFragment
-import com.decagon.pokemonapicall.`interface`.RetrofitService
-import com.decagon.pokemonapicall.common.Common
-import com.decagon.pokemonapicall.model.PokemonDetials
+import com.decagon.pokemonapicall.ui.SinglePokemonActivity
 import com.decagon.pokemonapicall.model.Result
-import kotlin.coroutines.coroutineContext
 
 class PokemonListAdapter(
     internal var context: Context,
@@ -49,10 +37,10 @@ class PokemonListAdapter(
         Glide.with(context).load(imageUrl)
             .into(holder.img_pokemon)
         holder.text_pokemon.text = pokemonList[position].name
-//        Log.i(TAG, "onBindViewHolder: ${holder.text_pokemon}")
+
 
         holder.card_view.setOnClickListener { it ->
-//            Toast.makeText(it.context, "${pokemonList[position].name}", Toast.LENGTH_SHORT).show()
+
                 intent = Intent(it.context, SinglePokemonActivity::class.java)
                 intent.putExtra("IMAGE_URL", imageUrl)
                 intent.putExtra("POKEMON_ID", id)
@@ -80,8 +68,10 @@ class PokemonListAdapter(
     }
 }
 
-
-    fun getPokemonId(url: String): String{
+/**
+ * Obtain pokemon unique ID from URL
+ */
+fun getPokemonId(url: String): String{
         val urlSplit = url.split("/")
         return urlSplit[urlSplit.lastIndex-1]
     }
