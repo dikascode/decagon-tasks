@@ -19,5 +19,15 @@
 
     </LinearLayout>
 
-
+    <!--Hidden Refresh button-->
+    <Button
+        android:id="@+id/refreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:visibility="invisible"
+        android:background="@android:color/black"
+        android:text="@string/refresh_button"
+        android:layout_gravity="bottom|center"
+        android:textColor="@android:color/white" />
 </FrameLayout>

@@ -3,6 +3,7 @@ package com.decagon.pokemonapicall.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import com.decagon.pokemonapicall.`interface`.RetrofitService
 import com.decagon.pokemonapicall.adapter.PokemonListAdapter
 import com.decagon.pokemonapicall.common.Common
 import com.decagon.pokemonapicall.model.AllPokemon
+import kotlinx.android.synthetic.main.activity_pokemon_details.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,21 +33,32 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
 
+        //Get all pokemon function
         getAllPokemon()
-        
+
+        /**
+         * Refresh on fail of CALL
+         */
+        refreshButton.setOnClickListener {
+            getAllPokemon()
+            refreshButton.visibility = View.INVISIBLE
+        }
+
 
     }
 
     /**
      * Call function to get all pokemons
      */
-
     private fun getAllPokemon() {
         mService.getPokemonList().enqueue(object : Callback<AllPokemon> {
-            override fun onFailure(call: Call<AllPokemon>, t: Throwable) {
 
+            override fun onFailure(call: Call<AllPokemon>, t: Throwable) {
                 Toast.makeText(this@MainActivity, "Unable to retrieve data. Please check your internet connection and try again", Toast.LENGTH_LONG).show()
-                Log.i("TAG", "onFailure: Failed to connect $t")
+//                Log.i("TAG", "onFailure: Failed to connect $t")
+
+                //Make refresh button visible
+                refreshButton.visibility = View.VISIBLE
 
             }
 

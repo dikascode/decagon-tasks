@@ -33,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="212dp"
             android:fontFamily="serif-monospace"
-            android:text="Pokemon Name"
             android:background="@color/blue"
             android:textColor="@android:color/white"
             android:textSize="22sp"
@@ -45,6 +44,9 @@
             app:layout_constraintTop_toTopOf="@+id/single_pokemon_iv" />
 
         <!--Textview for Abilities-->
+
+
+        <!--    Textview for Moves-->
 
         <TextView
             android:id="@+id/pokemon_tv1"
@@ -65,8 +67,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/abilityHolder" />
 
-
-        <!--    Textview for Moves-->
         <TextView
             android:id="@+id/pokemon_tv"
             android:layout_width="0dp"
@@ -120,7 +120,7 @@
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.055"
+            app:layout_constraintHorizontal_bias="0.083"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pokemon_name" />
 
@@ -155,6 +155,60 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pokemon_tv" />
+
+<!--        Height Text View-->
+
+        <!--        Weight Text View-->
+
+        <TextView
+            android:id="@+id/heightTv"
+            android:layout_width="130dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="224dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/blue"
+            android:fontFamily="serif-monospace"
+            android:padding="3dp"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/weightTv"
+            android:layout_width="130dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/blue"
+            android:fontFamily="serif-monospace"
+            android:padding="3dp"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/single_pokemon_iv"
+            app:layout_constraintStart_toStartOf="@+id/heightTv"
+            app:layout_constraintTop_toBottomOf="@+id/heightTv"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+<!--Hidden Refresh button-->
+        <Button
+            android:id="@+id/refreshButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:text="@string/refresh_button"
+            android:textColor="@android:color/black"
+            android:visibility="gone"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

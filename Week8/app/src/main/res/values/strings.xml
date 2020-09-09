@@ -5,4 +5,5 @@
     <string name="abilities">Abilities</string>
     <string name="moves">Moves</string>
     <string name="stats">Stats</string>
+    <string name="refresh_button">Refresh</string>
 </resources>

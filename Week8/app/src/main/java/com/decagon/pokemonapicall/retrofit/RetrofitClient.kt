@@ -16,7 +16,7 @@ object RetrofitClient {
     private var retrofit: Retrofit? = null
     fun getClient(baseUrl: String): Retrofit {
         var okHttpClient: OkHttpClient = OkHttpClient.Builder()
-            .connectTimeout(2, TimeUnit.SECONDS)
+            .connectTimeout(1, TimeUnit.SECONDS)
             .build()
 
         if (retrofit == null) {

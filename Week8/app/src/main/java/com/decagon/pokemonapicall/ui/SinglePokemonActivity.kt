@@ -1,7 +1,9 @@
 package com.decagon.pokemonapicall.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -29,6 +31,15 @@ class SinglePokemonActivity : AppCompatActivity() {
 
         //Single Pokemon details implementation
         getSinglePokemonDetails()
+
+        /**
+         * Refresh on fail of CALL
+         */
+        refreshButton.setOnClickListener {
+            getSinglePokemonDetails()
+            refreshButton.visibility = View.INVISIBLE
+        }
+
     }
 
     /**
@@ -41,7 +52,14 @@ class SinglePokemonActivity : AppCompatActivity() {
 
         mService.getSinglePokemon("$pokemonId").enqueue(object : Callback<PokemonDetials> {
             override fun onFailure(call: Call<PokemonDetials>, t: Throwable) {
-                Toast.makeText(this@SinglePokemonActivity, "Unable to retrieve data. Please check your internet connection and try again", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@SinglePokemonActivity,
+                    "Unable to retrieve data. Please check your internet connection and try again",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                //Make refresh button visible
+                refreshButton.visibility = View.VISIBLE
 
             }
 
@@ -50,9 +68,12 @@ class SinglePokemonActivity : AppCompatActivity() {
                 response: Response<PokemonDetials>
             ) {
                 if (response.code() == 200) {
-                    //Concatenate moves to a textview
 
+                    heightTv.text = "Height: ${response.body()?.height.toString()}"
+                    weightTv.text = "Weight: ${response.body()?.weight.toString()}"
                     pokemon_name.text = response.body()?.name ?: "No name to display"
+
+                    //Concatenate moves to a textview
                     var moveString = ""
                     moveString += response.body()?.moves?.joinToString(", ") {
                         it.move.name
@@ -72,11 +93,15 @@ class SinglePokemonActivity : AppCompatActivity() {
                     var statsString = ""
                     statsString += response.body()?.stats?.joinToString(", ") {
                         "${it.stat.name} : ${it.baseStat} "
-                    } ?:  "No Stats to display"
+                    } ?: "No Stats to display"
 
                     pokemon_tv2.text = statsString
-                }else{
-                    Toast.makeText(this@SinglePokemonActivity,"Oops, something seems to have gone wrong. Please try again", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        this@SinglePokemonActivity,
+                        "Oops, something seems to have gone wrong. Please try again",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
 
             }
