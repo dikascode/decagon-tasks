@@ -19,7 +19,7 @@
             android:background="@color/blue"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:layout_gravity="top"
-            app:title="Pokemon"
+            app:title="Pokemon List"
             />
 
 <!--        Recycler view for Pokemon list adapter-->
@@ -27,6 +27,7 @@
             android:id="@+id/pokemon_recyclerView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="5dp">
         </androidx.recyclerview.widget.RecyclerView>
 
