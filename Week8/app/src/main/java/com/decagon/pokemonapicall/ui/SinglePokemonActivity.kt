@@ -68,7 +68,7 @@ class SinglePokemonActivity : AppCompatActivity() {
                 response: Response<PokemonDetials>
             ) {
                 if (response.code() == 200) {
-
+                    //Get name, height and weight
                     heightTv.text = "Height: ${response.body()?.height.toString()}"
                     weightTv.text = "Weight: ${response.body()?.weight.toString()}"
                     pokemon_name.text = response.body()?.name ?: "No name to display"
@@ -111,8 +111,21 @@ class SinglePokemonActivity : AppCompatActivity() {
 
         //Set image for each Pokemon
         val imageUrl = intent.getStringExtra("IMAGE_URL")
-        Glide.with(this@SinglePokemonActivity).load(imageUrl)
-            .into(single_pokemon_iv)
 
+        getPokemonImage(imageUrl, pokemonId)
+
+
+    }
+
+    //Get each pokemon image
+    private fun getPokemonImage(imageUrl: String?, pokemonId: String?) {
+        if (imageUrl != "") {
+            Glide.with(this@SinglePokemonActivity).load(imageUrl)
+                .into(single_pokemon_iv)
+        } else {
+            val imageUrl = "https://pokeres.bastionbot.org/images/pokemon/$pokemonId.png"
+            Glide.with(this@SinglePokemonActivity).load(imageUrl)
+                .into(single_pokemon_iv)
+        }
     }
 }
