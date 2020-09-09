@@ -9,7 +9,8 @@
         android:id="@+id/card_view"
         app:cardCornerRadius="4dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/yellow">
 
         <LinearLayout
             android:padding="16dp"
@@ -21,7 +22,7 @@
                 android:id="@+id/pokemon_image"
                 android:scaleType="fitXY"
                 android:layout_width="150dp"
-                android:background="@drawable/ic_launcher_background"
+                android:background="@android:color/white"
                 android:layout_height="150dp" />
             
             <TextView
