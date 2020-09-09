@@ -41,38 +41,44 @@ class SinglePokemonActivity : AppCompatActivity() {
 
         mService.getSinglePokemon("$pokemonId").enqueue(object : Callback<PokemonDetials> {
             override fun onFailure(call: Call<PokemonDetials>, t: Throwable) {
-                Toast.makeText(this@SinglePokemonActivity, "$t", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@SinglePokemonActivity, "Unable to retrieve data. Please check your internet connection and try again", Toast.LENGTH_LONG).show()
+
             }
 
             override fun onResponse(
                 call: Call<PokemonDetials>,
                 response: Response<PokemonDetials>
             ) {
-                response.body()?.abilities
+                if (response.code() == 200) {
+                    //Concatenate moves to a textview
 
-                //Concatenate moves to a textview
-                var moveString = ""
-                moveString += response.body()?.moves!!.joinToString(", ") {
-                    it.move.name
+                    pokemon_name.text = response.body()?.name ?: "No name to display"
+                    var moveString = ""
+                    moveString += response.body()?.moves?.joinToString(", ") {
+                        it.move.name
+                    } ?: "No moves to display"
+
+                    pokemon_textView.text = moveString
+
+                    //Concatenate Abilities to a textview
+                    var abilityString = ""
+                    abilityString += response.body()?.abilities?.joinToString(", ") {
+                        it.ability.name
+                    } ?: "No Abilities to display"
+
+                    pokemon_tv1.text = abilityString
+
+                    //Concatenate stats to a textview
+                    var statsString = ""
+                    statsString += response.body()?.stats?.joinToString(", ") {
+                        "${it.stat.name} : ${it.baseStat} "
+                    } ?:  "No Stats to display"
+
+                    pokemon_tv2.text = statsString
+                }else{
+                    Toast.makeText(this@SinglePokemonActivity,"Oops, something seems to have gone wrong. Please try again", Toast.LENGTH_LONG).show()
                 }
 
-                pokemon_textView.text = "MOVES:\n\n$moveString"
-
-                //Concatenate Abilities to a textview
-                var abilityString = ""
-                abilityString += response.body()?.abilities!!.joinToString(", ") {
-                    it.ability.name
-                }
-
-                pokemon_tv1.text = "ABILITIES:\n\n$abilityString"
-
-                //Concatenate stats to a textview
-                var statsString = ""
-                statsString += response.body()?.stats!!.joinToString(", ") {
-                    "${it.stat.name} : ${it.baseStat} "
-                }
-
-                pokemon_tv2.text = "STATS:\n\n$statsString"
             }
 
         })

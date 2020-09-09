@@ -32,7 +32,13 @@ class PokemonListAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        //Obtain pokemon id to load image uniquely
         val id = getPokemonId(pokemonList[position].url)
+
+        /**
+         * Load image from web using Glide
+         */
+
         val imageUrl = "https://pokeres.bastionbot.org/images/pokemon/$id.png"
         Glide.with(context).load(imageUrl)
             .into(holder.img_pokemon)

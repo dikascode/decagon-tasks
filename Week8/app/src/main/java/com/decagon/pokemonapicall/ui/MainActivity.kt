@@ -2,6 +2,7 @@ package com.decagon.pokemonapicall.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,13 +44,21 @@ class MainActivity : AppCompatActivity() {
         mService.getPokemonList().enqueue(object : Callback<AllPokemon> {
             override fun onFailure(call: Call<AllPokemon>, t: Throwable) {
 
-                Toast.makeText(this@MainActivity, "$t", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MainActivity, "Unable to retrieve data. Please check your internet connection and try again", Toast.LENGTH_LONG).show()
+                Log.i("TAG", "onFailure: Failed to connect $t")
+
             }
 
             override fun onResponse(call: Call<AllPokemon>, response: Response<AllPokemon>) {
-                mAdapter = PokemonListAdapter(baseContext, response.body()?.results!!)
-                mAdapter.notifyDataSetChanged()
-                recyclerView.adapter = mAdapter
+                if(response.code() == 200){
+//                    Log.i("TAG", "onResponse code: ${response.code()}")
+                    mAdapter = PokemonListAdapter(baseContext, response.body()?.results!!)
+                    mAdapter.notifyDataSetChanged()
+                    recyclerView.adapter = mAdapter
+                } else{
+                    Toast.makeText(this@MainActivity,"Oops, something seems to have gone wrong. Please try again", Toast.LENGTH_LONG).show()
+                }
+
             }
         })
 

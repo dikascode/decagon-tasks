@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Api Post</string>
+    <string name="tv_name">Name</string>
+    <string name="tv_email">Email</string>
+    <string name="tv_number">Number</string>
+    <string name="tv_gender">Gender</string>
+    <string name="button_text">REGISTER</string>
+    <string name="et_number_hint">Number</string>
+    <string name="et_email_hint">Email</string>
+    <string name="et_name_hint">Name</string>
+    <string name="main_title">Register</string>
+    <string-array name="gender">
+        <item>Gender</item>
+        <item>Female</item>
+        <item>Male</item>
+        <item>Others</item>
+    </string-array>
+</resources>
