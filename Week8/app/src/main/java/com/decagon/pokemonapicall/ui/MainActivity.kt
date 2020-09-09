@@ -1,10 +1,14 @@
 package com.decagon.pokemonapicall.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.pokemonapicall.R
@@ -23,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var mService: RetrofitService
     lateinit var mAdapter: PokemonListAdapter
     lateinit var recyclerView: RecyclerView
+    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +36,14 @@ class MainActivity : AppCompatActivity() {
         mService = Common.retrofitService
         recyclerView = findViewById<RecyclerView>(R.id.pokemon_recyclerView)
         recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+
+
+        //Toolbar menu implementation
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        //Check for phone orientation an load appropriate GridLayout span count
+        checkOrientationForGridLayoutSpanCount()
 
         //Get all pokemon function
         getAllPokemon()
@@ -45,6 +57,39 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var id = item.itemId
+
+        when(id) {
+            R.id.upload -> {
+                //Go to activity showing contacts from firebase onclick of toolbar item
+                var intent = Intent(this, UploadImage::class.java)
+                startActivity(intent)
+            }
+            R.id.exit -> finish()
+
+        }
+
+
+        return true
+    }
+
+
+    private fun checkOrientationForGridLayoutSpanCount() {
+        val orientation = resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            recyclerView.layoutManager = GridLayoutManager(this, 4)
+        } else {
+            recyclerView.layoutManager = GridLayoutManager(this, 2)
+        }
     }
 
     /**

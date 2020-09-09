@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.MainActivity">
 
     <LinearLayout
@@ -10,11 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+<!--        Tollbar-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:layout_gravity="top"
+            app:title="Pokemon"
+            />
+
 <!--        Recycler view for Pokemon list adapter-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pokemon_recyclerView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
