@@ -35,10 +35,10 @@ class SinglePokemonActivity : AppCompatActivity() {
         /**
          * Refresh on fail of CALL
          */
-        refreshButton.setOnClickListener {
-            getSinglePokemonDetails()
-            refreshButton.visibility = View.INVISIBLE
-        }
+//        refreshButton.setOnClickListener {
+//            getSinglePokemonDetails()
+//            refreshButton.visibility = View.INVISIBLE
+//        }
 
     }
 
@@ -52,15 +52,6 @@ class SinglePokemonActivity : AppCompatActivity() {
 
         mService.getSinglePokemon("$pokemonId").enqueue(object : Callback<PokemonDetials> {
             override fun onFailure(call: Call<PokemonDetials>, t: Throwable) {
-                Toast.makeText(
-                    this@SinglePokemonActivity,
-                    "Unable to retrieve data. Please check your internet connection and try again",
-                    Toast.LENGTH_LONG
-                ).show()
-
-                //Make refresh button visible
-                refreshButton.visibility = View.VISIBLE
-
             }
 
             override fun onResponse(

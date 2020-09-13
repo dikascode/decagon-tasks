@@ -1,14 +1,16 @@
 package com.decagon.pokemonapicall.ui
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.pokemonapicall.R
@@ -16,7 +18,8 @@ import com.decagon.pokemonapicall.`interface`.RetrofitService
 import com.decagon.pokemonapicall.adapter.PokemonListAdapter
 import com.decagon.pokemonapicall.common.Common
 import com.decagon.pokemonapicall.model.AllPokemon
-import kotlinx.android.synthetic.main.activity_pokemon_details.*
+import com.decagon.pokemonapicall.networking.NetworkStatusChecker
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,16 +48,17 @@ class MainActivity : AppCompatActivity() {
         //Check for phone orientation an load appropriate GridLayout span count
         checkOrientationForGridLayoutSpanCount()
 
-        //Get all pokemon function
-        getAllPokemon()
+        //Check for status for connectivity and display data
+        checkConnectivityAndDisplayData()
+
 
         /**
          * Refresh on fail of CALL
          */
-        refreshButton.setOnClickListener {
-            getAllPokemon()
-            refreshButton.visibility = View.INVISIBLE
-        }
+//        refreshButton.setOnClickListener {
+//            checkConnectivity()
+//            getAllPokemon()
+//        }
 
 
     }
@@ -68,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var id = item.itemId
 
-        when(id) {
+        when (id) {
             R.id.upload -> {
                 //Go to activity showing contacts from firebase onclick of toolbar item
                 var intent = Intent(this, UploadImage::class.java)
@@ -77,7 +81,6 @@ class MainActivity : AppCompatActivity() {
             R.id.exit -> finish()
 
         }
-
 
         return true
     }
@@ -96,29 +99,60 @@ class MainActivity : AppCompatActivity() {
      * Call function to get all pokemons
      */
     private fun getAllPokemon() {
+        progressBar.visibility = View.VISIBLE
+        textView.visibility = View.VISIBLE
+
         mService.getPokemonList().enqueue(object : Callback<AllPokemon> {
-
             override fun onFailure(call: Call<AllPokemon>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "Unable to retrieve data. Please check your internet connection and try again", Toast.LENGTH_LONG).show()
 //                Log.i("TAG", "onFailure: Failed to connect $t")
-
-                //Make refresh button visible
-                refreshButton.visibility = View.VISIBLE
-
             }
 
             override fun onResponse(call: Call<AllPokemon>, response: Response<AllPokemon>) {
-                if(response.code() == 200){
-//                    Log.i("TAG", "onResponse code: ${response.code()}")
+
+                if (response.code() == 200) {
+                    //Make progress bar and poor network message views to GONE
+                    progressBar.visibility = View.GONE
+                    textView.visibility = View.GONE
+                    
+//                   Log.i("TAG", "onResponse code: ${response.code()}")
                     mAdapter = PokemonListAdapter(baseContext, response.body()?.results!!)
                     mAdapter.notifyDataSetChanged()
                     recyclerView.adapter = mAdapter
-                } else{
-                    Toast.makeText(this@MainActivity,"Oops, something seems to have gone wrong. Please try again", Toast.LENGTH_LONG).show()
                 }
+            }
+        })
+    }
 
+
+    private fun checkConnectivityAndDisplayData() {
+//        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+//        val activeNetwork = cm.activeNetworkInfo
+//        val isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting
+
+        val networkConnection = NetworkStatusChecker(this)
+
+        networkConnection.observe(this, Observer { isConnected ->
+            if (isConnected) {
+                noInternetIv.visibility = View.GONE
+
+                //Get all pokemon function
+                getAllPokemon()
+
+            } else {
+                Toast.makeText(
+                    this,
+                    "Oops. Please check your internet connection and try again",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                //Sad Pokemon image visible
+                noInternetIv.visibility = View.VISIBLE
+
+                //Set appropriate views to GONE or VISIBLE
+                progressBar.visibility = View.GONE
+                textView.visibility = View.GONE
             }
         })
 
-        }
+    }
 }

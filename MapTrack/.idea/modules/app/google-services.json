@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "307327673874",
+    "firebase_url": "https://maptrack-fbb42.firebaseio.com",
+    "project_id": "maptrack-fbb42",
+    "storage_bucket": "maptrack-fbb42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307327673874:android:d0a9147d8cd8dbd62d1acb",
+        "android_client_info": {
+          "package_name": "com.decagon.maptrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307327673874-hjspmsg7f4aqd57mfalkqpoj4oo2fhuj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.decagon.maptrack",
+            "certificate_hash": "440172406b72974907321d0ee6e36b0cec296c0d"
+          }
+        },
+        {
+          "client_id": "307327673874-7rdtj87bslg63nkr2tfpdj991ebtvjij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyk5xzP73YR12YEnQDaoU6RHYB0DafvmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307327673874-7rdtj87bslg63nkr2tfpdj991ebtvjij.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
