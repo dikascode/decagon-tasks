@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.decagon.maptrack.model.LocationLogging
+import com.decagon.maptrack.model.MyLocationLog
 import com.google.android.gms.location.*
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -16,8 +16,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -28,10 +29,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationCallback: LocationCallback
 
     lateinit var dbReference: DatabaseReference
-    lateinit var manager: LocationManager
-
-    val MIN_TIME = 1000L
-    val MIN_DISTANCE = 1f //1 meter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +40,54 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-//        FirebaseDatabase.getInstance().reference.setValue("this is me and Kome tracker app")
+
+        dbReference = Firebase.database.reference
+        dbReference.addValueEventListener(eventListener)
 
 
-//        dbReference = FirebaseDatabase.getInstance().reference.child("user-101")
+    }
 
+
+    /**
+     * Read partner's location from database by listening to change of her location
+     */
+    private val eventListener = object : ValueEventListener {
+
+        override fun onCancelled(error: DatabaseError) {
+            Toast.makeText(applicationContext, "Could not read from database", Toast.LENGTH_LONG)
+                .show()
+        }
+
+
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            if (dataSnapshot.exists()) {
+                map.clear()
+                val locationLog =
+                    dataSnapshot.child("komesLocation").getValue(MyLocationLog::class.java)
+
+                var partnerLatitude = locationLog?.Latitude
+                var partnerLongitude = locationLog?.Longitude
+
+
+                if (partnerLatitude != null && partnerLongitude != null) {
+                    val partnerLocation = LatLng(partnerLatitude, partnerLongitude)
+
+                    val markerOptions = MarkerOptions().position(partnerLocation).title("Kome")
+                    val zoomLevel = 20f
+
+                    map.setMinZoomPreference(zoomLevel)
+                    map.addMarker(markerOptions)
+                    map.animateCamera(CameraUpdateFactory.newLatLng(partnerLocation))
+
+
+                    Toast.makeText(
+                        applicationContext,
+                        "Partner's Location accessed from the database",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
     }
 
 
@@ -77,19 +117,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-
     private fun getLocationAccess() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             map.isMyLocationEnabled = true
             getLocationUpdates()
             startLocationUpdates()
-        }
-        else
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
+        } else
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_LOCATION_PERMISSION
+            )
     }
 
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == REQUEST_LOCATION_PERMISSION) {
             if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
                 if (ActivityCompat.checkSelfPermission(
@@ -110,9 +160,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     return
                 }
                 map.isMyLocationEnabled = true
-            }
-            else {
-                Toast.makeText(this, "User has not granted location access permission", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "User has not granted location access permission",
+                    Toast.LENGTH_LONG
+                ).show()
                 finish()
             }
         }
@@ -124,9 +177,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun getLocationUpdates() {
         locationRequest = LocationRequest()
 
+
+        val MIN_TIME = 10000L
+        val TIME_INTERVAL = 20000L
+
+
         //Set intervals
-        locationRequest.interval = 5000
-        locationRequest.fastestInterval = 2000
+        locationRequest.interval = TIME_INTERVAL
+        locationRequest.fastestInterval = MIN_TIME
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
         locationCallback = object : LocationCallback() {
@@ -134,21 +192,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (locationResult.locations.isNotEmpty()) {
                     val location = locationResult.lastLocation
 
-                    dbReference = FirebaseDatabase.getInstance().reference
+                    dbReference = Firebase.database.reference
 
-                    val locationLogging = LocationLogging(location.latitude, location.longitude)
-                    dbReference.child("userlocation").setValue(locationLogging)
+                    val locationLogging = MyLocationLog(location.latitude, location.longitude)
+                    dbReference.child("dikasLocation").setValue(locationLogging)
                         .addOnSuccessListener {
-                            Toast.makeText(applicationContext, "Locations written into the database", Toast.LENGTH_LONG).show()
+//                            Toast.makeText(applicationContext, "Locations written into the database", Toast.LENGTH_LONG).show()
                         }
                         .addOnFailureListener {
-                            Toast.makeText(applicationContext, "Error occured while writing the locations", Toast.LENGTH_LONG).show()
+//                            Toast.makeText(
+//                                applicationContext,
+//                                "Error occured while writing the locations",
+//                                Toast.LENGTH_LONG
+//                            ).show()
                         }
 
                     if (location != null) {
                         val latLng = LatLng(location.latitude, location.longitude)
                         val markerOptions = MarkerOptions().position(latLng)
-                        val zoomLevel = 15f
+                        val zoomLevel = 20f
 
                         map.setMinZoomPreference(zoomLevel)
                         map.addMarker(markerOptions)
@@ -186,7 +248,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             null
         )
     }
-
 
 
 }
