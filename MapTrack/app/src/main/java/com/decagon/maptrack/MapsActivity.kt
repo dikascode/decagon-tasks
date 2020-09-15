@@ -80,11 +80,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     map.animateCamera(CameraUpdateFactory.newLatLng(partnerLocation))
 
 
-                    Toast.makeText(
-                        applicationContext,
-                        "Partner's Location accessed from the database",
-                        Toast.LENGTH_LONG
-                    ).show()
+//                    Toast.makeText(
+//                        applicationContext,
+//                        "Partner's Location accessed from the database",
+//                        Toast.LENGTH_LONG
+//                    ).show()
                 }
             }
         }
@@ -214,7 +214,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                         map.setMinZoomPreference(zoomLevel)
                         map.addMarker(markerOptions)
-                        map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+//                        map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
                     }
                 }
             }
