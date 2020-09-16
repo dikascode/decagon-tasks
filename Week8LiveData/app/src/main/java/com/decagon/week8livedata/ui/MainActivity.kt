@@ -1,19 +1,20 @@
 package com.decagon.week8livedata.ui
 
-import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.week8livedata.R
 import com.decagon.week8livedata.adapter.RecyclerViewAdapter
 import com.decagon.week8livedata.model.AllPokemon
-import com.decagon.week8livedata.model.Result
-import kotlinx.android.synthetic.main.activity_main.*
+import com.decagon.week8livedata.viewmodel.ActivityViewModel
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     lateinit var recyclerViewAdapter: RecyclerViewAdapter
     private lateinit var recyclerView: RecyclerView
@@ -26,8 +27,12 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById<RecyclerView>(R.id.pokemon_recyclerView)
         recyclerView.setHasFixedSize(true)
 
+        //fetch and pass all pokemon data to adapter
+        getAllPokemonDataAndSendToRVAdapter()
+
+        //initializing recycler adapter
         initRecyclerView()
-        allPokemonData()
+
 
         //Toolbar menu implementation
         toolbar = findViewById(R.id.toolbar)
@@ -65,13 +70,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Get all Pokemon from api and send to recyclerview from LiveData observer
+    private fun getAllPokemonDataAndSendToRVAdapter() {
+        val viewModel = ViewModelProviders.of(this).get(ActivityViewModel::class.java)
+        viewModel.getRecyclerLiveDataObserver().observe(this, Observer<AllPokemon> {
 
-    private fun allPokemonData() {
-        val item = ArrayList<Result>()
+            if (it != null) {
+                recyclerViewAdapter.setPokemonData(it.results)
+                recyclerViewAdapter.notifyDataSetChanged()
+            }
+        })
 
-//        item.add(Result("Dika", "www.hello.com/1"))
-
-        recyclerViewAdapter.setPokemonData(item)
-        recyclerViewAdapter.notifyDataSetChanged()
+        //Obtaining data from api call
+        viewModel.makeAllPokemonApiCall(this)
     }
 }

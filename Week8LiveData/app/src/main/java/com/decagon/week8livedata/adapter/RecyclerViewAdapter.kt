@@ -17,10 +17,12 @@ import com.decagon.week8livedata.ui.SinglePokemonActivity
 class RecyclerViewAdapter(
     internal var context: Context
 ) : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
-    internal lateinit var pokemonList: List<Result>
     lateinit var intent: Intent
 
-    fun setPokemonData(data: ArrayList<Result>){
+    private var pokemonList: List<Result> = ArrayList()
+
+
+    fun setPokemonData(data: List<Result>){
         this.pokemonList = data
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
