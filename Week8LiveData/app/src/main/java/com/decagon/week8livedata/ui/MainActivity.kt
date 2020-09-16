@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.decagon.week8livedata.R
 import com.decagon.week8livedata.adapter.RecyclerViewAdapter
 import com.decagon.week8livedata.model.AllPokemon
+import com.decagon.week8livedata.network.NetworkStatusChecker
 import com.decagon.week8livedata.viewmodel.ActivityViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -24,15 +28,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView = findViewById<RecyclerView>(R.id.pokemon_recyclerView)
-        recyclerView.setHasFixedSize(true)
 
-        //fetch and pass all pokemon data to adapter
-        getAllPokemonDataAndSendToRVAdapter()
+        recyclerView = findViewById(R.id.pokemon_recyclerView)
+        recyclerView.setHasFixedSize(true)
 
         //initializing recycler adapter
         initRecyclerView()
 
+        checkConnectivityAndDisplayData()
 
         //Toolbar menu implementation
         toolbar = findViewById(R.id.toolbar)
@@ -83,5 +86,33 @@ class MainActivity : AppCompatActivity() {
 
         //Obtaining data from api call
         viewModel.makeAllPokemonApiCall(this)
+    }
+
+    private fun checkConnectivityAndDisplayData() {
+        val networkConnection = NetworkStatusChecker(this)
+
+        networkConnection.observe(this, Observer { isConnected ->
+            if (isConnected) {
+                noInternetIv.visibility = View.GONE
+
+                //fetch and pass all pokemon data to adapter
+                getAllPokemonDataAndSendToRVAdapter()
+
+            } else {
+                Toast.makeText(
+                    this,
+                    "Oops. Please check your internet connection and try again",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                //Sad Pokemon image visible
+                noInternetIv.visibility = View.VISIBLE
+
+                //Set appropriate views to GONE or VISIBLE
+                progressBar.visibility = View.GONE
+                textView.visibility = View.GONE
+            }
+        })
+
     }
 }

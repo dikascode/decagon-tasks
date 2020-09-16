@@ -17,14 +17,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ActivityViewModel : ViewModel() {
+    lateinit var progressBar: ProgressBar
+    lateinit var textView: TextView
 
      // Instantiate Mutable live data for recyclerview
-
     var recyclerListData: MutableLiveData<AllPokemon> = MutableLiveData()
 
 
      // Instantiate Mutable live data for Pokemon details
-
     var pokemonDetailsData: MutableLiveData<PokemonDetials> = MutableLiveData()
 
     //Retrofit instance of Service
@@ -47,8 +47,8 @@ class ActivityViewModel : ViewModel() {
      */
 
     fun makeAllPokemonApiCall(context: Context) {
-        var progressBar: ProgressBar = (context as Activity).findViewById(R.id.progressBar)
-        var textView: TextView = (context as Activity).findViewById(R.id.textView)
+        progressBar = (context as Activity).findViewById(R.id.progressBar)
+        textView = (context as Activity).findViewById(R.id.textView)
 
         progressBar.visibility = View.VISIBLE
         textView.visibility = View.VISIBLE
@@ -62,12 +62,11 @@ class ActivityViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<AllPokemon>, response: Response<AllPokemon>) {
+                //Make progress bar and poor network message views to GONE
+                progressBar.visibility = View.GONE
+                textView.visibility = View.GONE
 
                 if (response.code() == 200) {
-                    //Make progress bar and poor network message views to GONE
-                    progressBar.visibility = View.GONE
-                    textView.visibility = View.GONE
-
                     //pass response to LiveData object
                     recyclerListData.postValue(response.body())
 

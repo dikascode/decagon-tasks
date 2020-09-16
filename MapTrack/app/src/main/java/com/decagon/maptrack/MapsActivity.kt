@@ -2,9 +2,12 @@ package com.decagon.maptrack
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.LocationManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -28,6 +31,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
 
+    private val MY_TITLE = "Dika"
+    private val PARTNER_TITLE = "Kome"
+
     lateinit var dbReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +44,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-
+        //Partner Location listener updates
         dbReference = Firebase.database.reference
         dbReference.addValueEventListener(eventListener)
 
@@ -62,29 +69,60 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             if (dataSnapshot.exists()) {
                 map.clear()
-                val locationLog =
+
+                //Get partner's location from firebase
+                val partnerLocationLog =
                     dataSnapshot.child("komesLocation").getValue(MyLocationLog::class.java)
 
-                var partnerLatitude = locationLog?.Latitude
-                var partnerLongitude = locationLog?.Longitude
+                var partnerLatitude = partnerLocationLog?.Latitude
+                var partnerLongitude = partnerLocationLog?.Longitude
 
 
                 if (partnerLatitude != null && partnerLongitude != null) {
                     val partnerLocation = LatLng(partnerLatitude, partnerLongitude)
 
-                    val markerOptions = MarkerOptions().position(partnerLocation).title("Kome")
-                    val zoomLevel = 20f
+                    val markerOptions =
+                        MarkerOptions().position(partnerLocation).title(PARTNER_TITLE)
+                    val zoomLevel = 15f
 
+                    ///Custom Marker
+                    val bitmap: Bitmap? = Bitmap.createScaledBitmap(
+                        BitmapFactory.decodeResource(
+                            resources,
+                            R.drawable.kome
+                        ), 150, 150, true
+                    )
+                    map.addMarker(markerOptions).setIcon(BitmapDescriptorFactory.fromBitmap(bitmap))
                     map.setMinZoomPreference(zoomLevel)
-                    map.addMarker(markerOptions)
                     map.animateCamera(CameraUpdateFactory.newLatLng(partnerLocation))
 
+                }
 
-//                    Toast.makeText(
-//                        applicationContext,
-//                        "Partner's Location accessed from the database",
-//                        Toast.LENGTH_LONG
-//                    ).show()
+                //Fetch my location my firebase
+                val myLocationLog =
+                    dataSnapshot.child("dikasLocation").getValue(MyLocationLog::class.java)
+
+
+                if (myLocationLog != null) {
+                    var myLatitude = myLocationLog.Latitude
+                    var myLongitude = myLocationLog.Longitude
+                    val zoomLevel = 15f
+
+
+                    val latLng = LatLng(myLatitude!!, myLongitude!!)
+                    val markerOptions = MarkerOptions().position(latLng).title(MY_TITLE)
+                    ///Custom Marker
+                    val bitmap: Bitmap? = Bitmap.createScaledBitmap(
+                        BitmapFactory.decodeResource(
+                            resources,
+                            R.drawable.dika
+                        ), 150, 150, true
+                    )
+                    map.addMarker(markerOptions).setIcon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                    map.setMinZoomPreference(zoomLevel)
+
+                    //           map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+
                 }
             }
         }
@@ -105,18 +143,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         map.uiSettings.isZoomControlsEnabled = true
         map.uiSettings.setAllGesturesEnabled(true)
 
-        getLocationAccess()
 
-        // Add a marker in Sydney and move the camera
-//        val sydney = LatLng(latitude, longitude)
-//        map.setMinZoomPreference(zoomLevel)
-//        map.uiSettings.isZoomControlsEnabled = true
-//        map.uiSettings.setAllGesturesEnabled(true)
-//        map.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-//        map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        getLocationAccess()
     }
 
-
+    //Get location access if permission granted
     private fun getLocationAccess() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -134,7 +165,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
     }
 
-
+    //Permission request handler
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -152,11 +183,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 ) {
                     // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
                     return
                 }
                 map.isMyLocationEnabled = true
@@ -170,6 +196,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.map_options, menu)
+        return true
+    }
+
+    //Different maps selection
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        //Change the map type based on the user's preference
+        R.id.normal_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_NORMAL
+            true
+        }
+        R.id.hybrid_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_HYBRID
+            true
+        }
+        R.id.satellite_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            true
+        }
+        R.id.terrain_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_TERRAIN
+            true
+        }
+
+        else -> super.onOptionsItemSelected(item)
+    }
+
 
     /**
      * Set location updates
@@ -199,23 +255,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         .addOnSuccessListener {
 //                            Toast.makeText(applicationContext, "Locations written into the database", Toast.LENGTH_LONG).show()
                         }
-                        .addOnFailureListener {
-//                            Toast.makeText(
-//                                applicationContext,
-//                                "Error occured while writing the locations",
-//                                Toast.LENGTH_LONG
-//                            ).show()
-                        }
 
-                    if (location != null) {
-                        val latLng = LatLng(location.latitude, location.longitude)
-                        val markerOptions = MarkerOptions().position(latLng)
-                        val zoomLevel = 20f
 
-                        map.setMinZoomPreference(zoomLevel)
-                        map.addMarker(markerOptions)
-//                        map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-                    }
                 }
             }
         }
@@ -242,6 +283,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
+
         fusedLocationClient.requestLocationUpdates(
             locationRequest,
             locationCallback,
