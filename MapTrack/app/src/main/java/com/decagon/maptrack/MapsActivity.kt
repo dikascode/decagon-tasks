@@ -83,14 +83,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                     val markerOptions =
                         MarkerOptions().position(partnerLocation).title(PARTNER_TITLE)
-                    val zoomLevel = 15f
+                    val zoomLevel = 20f
 
                     ///Custom Marker
                     val bitmap: Bitmap? = Bitmap.createScaledBitmap(
                         BitmapFactory.decodeResource(
                             resources,
                             R.drawable.kome
-                        ), 150, 150, true
+                        ), 100, 100, true
                     )
                     map.addMarker(markerOptions).setIcon(BitmapDescriptorFactory.fromBitmap(bitmap))
                     map.setMinZoomPreference(zoomLevel)
@@ -106,7 +106,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (myLocationLog != null) {
                     var myLatitude = myLocationLog.Latitude
                     var myLongitude = myLocationLog.Longitude
-                    val zoomLevel = 15f
+                    val zoomLevel = 20f
 
 
                     val latLng = LatLng(myLatitude!!, myLongitude!!)
@@ -116,7 +116,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         BitmapFactory.decodeResource(
                             resources,
                             R.drawable.dika
-                        ), 150, 150, true
+                        ), 100, 100, true
                     )
                     map.addMarker(markerOptions).setIcon(BitmapDescriptorFactory.fromBitmap(bitmap))
                     map.setMinZoomPreference(zoomLevel)
@@ -234,8 +234,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         locationRequest = LocationRequest()
 
 
-        val MIN_TIME = 10000L
-        val TIME_INTERVAL = 20000L
+        val MIN_TIME = 2000L
+        val TIME_INTERVAL = 2000L
 
 
         //Set intervals
@@ -248,12 +248,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (locationResult.locations.isNotEmpty()) {
                     val location = locationResult.lastLocation
 
-                    dbReference = Firebase.database.reference
-
                     val locationLogging = MyLocationLog(location.latitude, location.longitude)
+
+                    //Write location into firebase
+                    dbReference = Firebase.database.reference
                     dbReference.child("dikasLocation").setValue(locationLogging)
                         .addOnSuccessListener {
-//                            Toast.makeText(applicationContext, "Locations written into the database", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                applicationContext,
+                                "Locations written into the database",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
 
 
@@ -290,6 +295,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             null
         )
     }
+
+    /**
+     * Stop update when app is out of focus
+     */
+//    override fun onPause() {
+//        super.onPause()
+//        stopLocationUpdates()
+//    }
+//
+//    private fun stopLocationUpdates() {
+//        fusedLocationClient.removeLocationUpdates(locationCallback)
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//    }
 
 
 }
