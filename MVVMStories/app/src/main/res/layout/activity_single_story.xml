@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="10dp"
+                android:padding="5dp"
                 />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -42,6 +43,8 @@
         android:id="@+id/comments_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:padding="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

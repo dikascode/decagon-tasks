@@ -1,5 +1,6 @@
 package com.decagon.mvvmstories.network
 
+import com.decagon.mvvmstories.model.Comments
 import com.decagon.mvvmstories.model.Story
 import retrofit2.Call
 import retrofit2.http.GET
@@ -13,4 +14,7 @@ interface RetroService {
 
     @GET("posts/{id}")
     fun getStory(@Path("id") key: Int): Call<Story>
+
+    @GET("posts/{id}/comments")
+    fun getComments(@Path("id") key: Int): Call<List<Comments>>
 }

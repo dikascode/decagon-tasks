@@ -4,15 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.View.GONE
-import android.view.View.VISIBLE
-import androidx.core.os.HandlerCompat.postDelayed
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.decagon.mvvmstories.R
-import com.decagon.mvvmstories.viewModel.SearchActivityViewModel
-import kotlinx.android.synthetic.main.activity_search.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Handler().postDelayed({
-            startActivity(Intent(this, SearchActivity::class.java))
+            startActivity(Intent(this, StoriesActivity::class.java))
             finish()
         }, 2000)
 

@@ -5,18 +5,22 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.decagon.mvvmstories.model.Comments
 import com.decagon.mvvmstories.model.Story
 import com.decagon.mvvmstories.network.RetroInstance
 import com.decagon.mvvmstories.network.RetroService
 import retrofit2.*
 
-class SearchActivityRepository(val application: Application) {
+class FetchActivityRepository(val application: Application) {
 
     val showProgress = MutableLiveData<Boolean>()
 
     val storyList = MutableLiveData<List<Story>>()
 
     val singleStory = MutableLiveData<Story>()
+
+    val commentsList = MutableLiveData<List<Comments>>()
+
 
     //Retrofit instance of Service
     private val retroInstance: RetroService =
@@ -52,7 +56,7 @@ class SearchActivityRepository(val application: Application) {
 
     }
 
-    fun searchStory(id: Int) {
+    fun getStory(id: Int) {
         showProgress.value = true
         val call = retroInstance.getStory(id)
 
@@ -70,6 +74,22 @@ class SearchActivityRepository(val application: Application) {
 
         })
 
+    }
+
+    fun getComments(id: Int) {
+        val call = retroInstance.getComments(id)
+
+        call.enqueue(object: Callback<List<Comments>> {
+            override fun onFailure(call: Call<List<Comments>>, t: Throwable) {
+                Log.d(TAG, "onFailure Get comments: $t")
+            }
+
+            override fun onResponse(call: Call<List<Comments>>, response: Response<List<Comments>>) {
+                commentsList.value = response.body()
+//                Log.d(TAG, "Success Get comments: ${response.body()}")
+            }
+
+        })
     }
 }
 

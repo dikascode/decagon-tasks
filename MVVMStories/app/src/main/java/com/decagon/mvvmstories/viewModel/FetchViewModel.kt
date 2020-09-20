@@ -3,21 +3,24 @@ package com.decagon.mvvmstories.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import com.decagon.mvvmstories.model.Comments
 import com.decagon.mvvmstories.model.Story
-import com.decagon.mvvmstories.repository.SearchActivityRepository
+import com.decagon.mvvmstories.repository.FetchActivityRepository
 
-class SearchActivityViewModel(application: Application): AndroidViewModel(application) {
+class FetchViewModel(application: Application): AndroidViewModel(application) {
 
-    private val repository = SearchActivityRepository(application)
+    private val repository = FetchActivityRepository(application)
     val showProgress: LiveData<Boolean>
     val storyList: LiveData<List<Story>>
     val singleStory: LiveData<Story>
+
+    val commentsList: LiveData<List<Comments>>
 
     init {
         this.storyList = repository.storyList
         this.showProgress = repository.showProgress
         this.singleStory = repository.singleStory
+        this.commentsList = repository.commentsList
     }
 
     fun changeState() {
@@ -28,8 +31,12 @@ class SearchActivityViewModel(application: Application): AndroidViewModel(applic
         repository.displayStories()
     }
 
-    fun searchStory(id: Int) {
-        repository.searchStory(id)
+    fun getStory(id: Int) {
+        repository.getStory(id)
+    }
+
+    fun getComments(id: Int) {
+        repository.getComments(id)
     }
 
 
