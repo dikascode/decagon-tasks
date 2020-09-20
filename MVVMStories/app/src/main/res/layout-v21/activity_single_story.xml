@@ -9,8 +9,9 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="300dp">'
 
+<!--    Collapsable toolbar-->
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -48,6 +49,7 @@
         android:textStyle="bold"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+<!--    Comment recycler view-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/comments_rv"
         android:layout_width="match_parent"
@@ -65,7 +67,10 @@
         android:background="@android:color/white"
         android:orientation="vertical"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+<!--        Material design edit text-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/username_et"
@@ -107,6 +112,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/add_comment_btn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             style="@style/Widget.MaterialComponents.Button.Icon"
