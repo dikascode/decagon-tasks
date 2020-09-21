@@ -37,6 +37,9 @@ class StoriesActivity : AppCompatActivity() {
                 search_progress.visibility = View.GONE
         })
 
+        /**
+         * Observer
+         */
         viewModel.storyList.observe(this, Observer {
             adapter.setStoryList(it)
 

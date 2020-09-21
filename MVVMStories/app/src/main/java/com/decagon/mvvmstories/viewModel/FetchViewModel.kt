@@ -4,15 +4,15 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.decagon.mvvmstories.model.Comments
-import com.decagon.mvvmstories.model.Story
-import com.decagon.mvvmstories.repository.FetchActivityRepository
+import com.decagon.mvvmstories.model.Stories
+import com.decagon.mvvmstories.repository.FetchRepository
 
 class FetchViewModel(application: Application): AndroidViewModel(application) {
 
-    private val repository = FetchActivityRepository(application)
+    private val repository = FetchRepository(application)
     val showProgress: LiveData<Boolean>
-    val storyList: LiveData<List<Story>>
-    val singleStory: LiveData<Story>
+    val storyList: LiveData<List<Stories>>
+    val singleStory: LiveData<Stories>
 
     val commentsList: LiveData<List<Comments>>
 

@@ -9,8 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.mvvmstories.R
-import com.decagon.mvvmstories.model.SingleStoryModel
-import com.decagon.mvvmstories.model.Story
+import com.decagon.mvvmstories.model.Stories
 import com.decagon.mvvmstories.view.SingleStory
 import kotlinx.android.synthetic.main.card_layout_story.view.*
 
@@ -18,9 +17,9 @@ class StoryAdapter(private val context: Context) :
     RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
     lateinit var intent: Intent
 
-    private var list: List<Story> = ArrayList()
+    private var list: List<Stories> = ArrayList()
 
-    fun setStoryList(list: List<Story>) {
+    fun setStoryList(list: List<Stories>) {
         this.list = list
         notifyDataSetChanged()
     }

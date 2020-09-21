@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp">'
 
-<!--    Collapsable toolbar-->
+        <!--    Collapsable toolbar-->
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -49,12 +49,12 @@
         android:textStyle="bold"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-<!--    Comment recycler view-->
+    <!--    Comment recycler view-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/comments_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -68,15 +68,15 @@
         android:orientation="vertical"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+    >
 
-<!--        Material design edit text-->
+        <!--        Material design edit text-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/username_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:hint="Name"
             app:errorEnabled="true">
 
@@ -89,7 +89,6 @@
             android:id="@+id/email_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:hint="Email"
             app:errorEnabled="true">
 
@@ -102,7 +101,6 @@
             android:id="@+id/comment_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:hint="comment"
             app:errorEnabled="true">
 
@@ -113,14 +111,13 @@
 
         <Button
             android:id="@+id/add_comment_btn"
+            style="@style/Widget.MaterialComponents.Button.Icon"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            style="@style/Widget.MaterialComponents.Button.Icon"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="Add Comment"
             android:textSize="22sp"
-            app:icon="@drawable/ic_add_24"
-            />
+            app:icon="@drawable/ic_add_24" />
 
 
     </LinearLayout>

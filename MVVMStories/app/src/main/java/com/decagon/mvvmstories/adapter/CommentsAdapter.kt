@@ -1,20 +1,14 @@
 package com.decagon.mvvmstories.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.mvvmstories.R
 import com.decagon.mvvmstories.model.Comments
-import com.decagon.mvvmstories.model.SingleStoryModel
-import com.decagon.mvvmstories.model.Story
-import com.decagon.mvvmstories.view.SingleStory
 import kotlinx.android.synthetic.main.card_layout_comment.view.*
-import kotlinx.android.synthetic.main.card_layout_story.view.*
 
 class CommentsAdapter(private val context: Context) :
     RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
