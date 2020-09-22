@@ -74,7 +74,7 @@
         <!--        Material design edit text-->
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/username_et"
+            android:id="@+id/story_title_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
@@ -86,7 +86,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_et"
+            android:id="@+id/story_body_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"

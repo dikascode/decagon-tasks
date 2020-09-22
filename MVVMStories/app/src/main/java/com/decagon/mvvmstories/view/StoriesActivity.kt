@@ -46,7 +46,6 @@ class StoriesActivity : AppCompatActivity() {
         })
 
         adapter = StoryAdapter( this)
-
         rv_stories.adapter = adapter
     }
 
