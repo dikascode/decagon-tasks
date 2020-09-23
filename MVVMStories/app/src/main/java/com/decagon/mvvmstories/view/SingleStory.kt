@@ -47,17 +47,24 @@ class SingleStory : AppCompatActivity() {
             val email = "dika@gmail.com"
             val comment = comment_et.text.toString()
 
-            val post = Comments(0, id, username, email, comment)
+            if(comment.isEmpty()){
+                Toast.makeText(this, "Please write a comment", Toast.LENGTH_SHORT).show()
+                comment_et.error = "Please write a comment"
+            } else {
+                val post = Comments(0, id, username, email, comment)
 
-            commentViewModel.addComment(post)
+                commentViewModel.addComment(post)
 
-            //Refresh activity
-            finish()
-            startActivity(intent)
+                //Refresh activity
+                finish()
+                startActivity(intent)
 
-            Toast.makeText(this, "Comment added successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Comment added successfully", Toast.LENGTH_SHORT).show()
 
 //            Toast.makeText(this, "$id, $username, $email, $comment", Toast.LENGTH_LONG).show()
+            }
+
+
 
         }
     }

@@ -4,42 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".view.StoriesActivity">
 
-    <RelativeLayout
-        android:id="@+id/toolbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark">
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/toolbar_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/colorPrimaryDark">-->
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/iv_search"
-            android:layout_toLeftOf="@id/iv_search"
-            android:backgroundTint="@android:color/white"
-            android:hint="Stories"
-            android:maxLines="1"
-            android:textColor="@android:color/white"
-            android:textColorHint="#80FFFFFF" />
+<!--        <androidx.appcompat.widget.AppCompatEditText-->
+<!--            android:id="@+id/et_search"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_toStartOf="@id/iv_search"-->
+<!--            android:layout_toLeftOf="@id/iv_search"-->
+<!--            android:backgroundTint="@android:color/white"-->
+<!--            android:hint="Stories"-->
+<!--            android:maxLines="1"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textColorHint="#80FFFFFF" />-->
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_search"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:src="@android:drawable/ic_menu_search" />
-    </RelativeLayout>
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:id="@+id/iv_search"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:src="@android:drawable/ic_menu_search" />-->
+<!--    </RelativeLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_stories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_layout"
         android:padding="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

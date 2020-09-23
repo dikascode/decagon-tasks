@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.SingleStory" />
+        <activity android:name=".view.SingleStory"
+            android:parentActivityName=".view.StoriesActivity"/>
         <activity android:name=".view.StoriesActivity" />
     </application>
 

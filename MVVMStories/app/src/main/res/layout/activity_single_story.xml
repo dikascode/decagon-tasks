@@ -69,7 +69,7 @@
         android:id="@+id/add_comment_btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@android:color/black"
         android:drawableRight="@drawable/send_24"
         android:layout_gravity="bottom|right"/>
 

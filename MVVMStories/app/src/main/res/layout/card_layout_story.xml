@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="@android:color/white"
+    app:cardBackgroundColor="@color/myColor"
     app:cardCornerRadius="4dp"
     android:id="@+id/rv_card_layout">
 
@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:text="Post Title"
             android:textAllCaps="true"
-            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"
             android:layout_marginBottom="5dp"
             android:textSize="20sp"/>
 
@@ -29,8 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColor="@android:color/black"
-            android:text="Post Title"
+            android:textColor="@android:color/white"
+            android:text="Post Body"
             android:textSize="18sp"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
