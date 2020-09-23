@@ -9,6 +9,10 @@ import androidx.room.Query
 @Dao
 interface StoryDao{
 
+    /**
+     * Dao for Posts
+     */
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addStory(story: Stories)
 
@@ -17,4 +21,7 @@ interface StoryDao{
 
     @Query("SELECT * FROM post_table WHERE id = :id")
     fun readSinglePost(id: Int): LiveData<Stories>
+
+    @Query("SELECT * FROM post_table WHERE title OR body LIKE :search ORDER BY id DESC")
+    fun getSearchPost(search:String): LiveData<List<Stories>>
 }

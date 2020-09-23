@@ -40,4 +40,8 @@ class RoomStoryViewModel(application: Application) : AndroidViewModel(applicatio
         repository.displayStories()
     }
 
+    fun getSearchPosts(search: String): LiveData<List<Stories>> {
+       return repository.getSearchPost(search)
+    }
+
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +32,6 @@ class StoriesActivity : AppCompatActivity() {
         viewModel.displayStories()
 
         roomViewModel.displayStories()
-
 
 
         /**
@@ -63,13 +63,25 @@ class StoriesActivity : AppCompatActivity() {
         val item: MenuItem = menu!!.findItem(R.id.action_search)
         val searchView: SearchView = item.actionView as SearchView
 
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter.filter(newText)
+                if (newText != null) {
+                    val searchString = "%$newText%"
+
+                    //Observer for search
+                    val searchResult = roomViewModel.getSearchPosts(searchString)
+
+                    searchResult.observe(this@StoriesActivity, Observer {
+                        adapter.setRoomStoryList(it as ArrayList<Stories>)
+                    })
+
+                }
+
+//                adapter.filter.filter(newText)
                 return false
             }
 

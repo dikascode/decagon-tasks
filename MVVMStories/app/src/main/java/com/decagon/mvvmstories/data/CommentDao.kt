@@ -9,6 +9,10 @@ import androidx.room.Query
 @Dao
 interface CommentDao{
 
+    /**
+     * Dao for comments
+     */
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addComment(comment: Comments)
 

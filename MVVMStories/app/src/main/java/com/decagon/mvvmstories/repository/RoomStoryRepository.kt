@@ -20,6 +20,9 @@ class RoomStoryRepository(private val storyDao: StoryDao) {
         return storyDao.readSinglePost(id)
     }
 
+    fun getSearchPost(search: String): LiveData<List<Stories>> {
+        return storyDao.getSearchPost(search)
+    }
 
 
     //Retrofit instance of Service

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 /**
- * Create database
+ * Comments database
  */
 @Database(entities = [Comments::class], version = 1, exportSchema = false)
 abstract class CommentsDatabase: RoomDatabase() {
