@@ -1,9 +1,7 @@
 package com.decagon.mvvmstories.network
 
-import com.decagon.mvvmstories.model.Comment
 import com.decagon.mvvmstories.data.Comments
 import com.decagon.mvvmstories.data.Stories
-import com.decagon.mvvmstories.model.Story
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -26,9 +24,4 @@ interface RetroService {
     @GET("posts/{id}/comments")
     suspend fun getComments(@Path("id") key: Int): Response<List<Comments>>
 
-    @POST("posts")
-    fun addComment(@Path("id") key: Int, @Body newComment: Comment): Call<Comment>
-
-    @POST("posts")
-    fun addStory(@Body newPost: Story): Call<Story>
 }

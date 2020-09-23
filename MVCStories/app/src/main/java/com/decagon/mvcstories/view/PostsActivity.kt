@@ -1,30 +1,27 @@
-package com.decagon.mvvmstories.view
+package com.decagon.mvcstories.view
 
 import android.content.Intent
+import com.decagon.mvcstories.adapter.StoryAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.decagon.mvvmstories.R
-import com.decagon.mvvmstories.adapter.StoryAdapter
-import com.decagon.mvvmstories.data.Stories
-import com.decagon.mvvmstories.viewModel.RoomStoryViewModel
-import kotlinx.android.synthetic.main.activity_search.*
+import com.decagon.mvcstories.R
+import com.decagon.mvcstories.controller.PostController
+import com.decagon.mvcstories.data.Post
+import kotlinx.android.synthetic.main.activity_posts.*
 
-class StoriesActivity : AppCompatActivity() {
-    private lateinit var roomViewModel: RoomStoryViewModel
+class PostsActivity : AppCompatActivity() {
+    private lateinit var postController: PostController
     private lateinit var adapter: StoryAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+        setContentView(R.layout.activity_posts)
 
-        roomViewModel = ViewModelProvider(this).get(RoomStoryViewModel::class.java)
-        roomViewModel.displayStories()
-
+        postController = PostController(this)
+        postController.displayStories()
 
         /**
          * Add new Story FAB button
@@ -38,13 +35,14 @@ class StoriesActivity : AppCompatActivity() {
         /**
          * Stories list observer
          */
-        roomViewModel.readAllStories.observe(this, Observer {
-            adapter.setRoomStoryList(it as ArrayList<Stories>)
+        postController.readAllStories.observe(this, Observer {
+            adapter.setRoomStoryList(it as ArrayList<Post>)
 
         })
 
         adapter = StoryAdapter(this)
         rv_stories.adapter = adapter
+
 
     }
 
@@ -64,10 +62,10 @@ class StoriesActivity : AppCompatActivity() {
                     val searchString = "%$newText%"
 
                     //Observer for search
-                    val searchResult = roomViewModel.getSearchPosts(searchString)
+                    val searchResultObserver = postController.getSearchPosts(searchString)
 
-                    searchResult.observe(this@StoriesActivity, Observer {
-                        adapter.setRoomStoryList(it as ArrayList<Stories>)
+                    searchResultObserver.observe(this@PostsActivity, Observer {
+                        adapter.setRoomStoryList(it as ArrayList<Post>)
                     })
 
                 }
@@ -80,5 +78,4 @@ class StoriesActivity : AppCompatActivity() {
 
         return super.onCreateOptionsMenu(menu)
     }
-
 }

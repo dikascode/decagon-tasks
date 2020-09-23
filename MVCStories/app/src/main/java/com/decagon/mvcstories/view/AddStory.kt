@@ -1,4 +1,4 @@
-package com.decagon.mvvmstories.view
+package com.decagon.mvcstories.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,19 +7,19 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.decagon.mvvmstories.R
-import com.decagon.mvvmstories.data.Stories
-import com.decagon.mvvmstories.viewModel.RoomStoryViewModel
+import com.decagon.mvcstories.R
+import com.decagon.mvcstories.controller.PostController
+import com.decagon.mvcstories.data.Post
 import kotlinx.android.synthetic.main.activity_add_story.*
 
 class AddStory : AppCompatActivity() {
-    private lateinit var viewModel: RoomStoryViewModel
+    private lateinit var postController: PostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_story)
 
-        //ViewModel Provider Instance
-        viewModel = ViewModelProvider(this).get(RoomStoryViewModel::class.java)
+        //post controller Instance
+       postController = PostController(this)
 
 
         /**
@@ -37,16 +37,16 @@ class AddStory : AppCompatActivity() {
 
         if (inputCheck(userId, title, body)) {
             //Create Post Object
-            val post = Stories(0, userId, title, body)
+            val post = Post(0, userId, title, body)
 
             //Add Post to database
-            viewModel.addStory(post)
+            postController.addStory(post)
 
-            Log.d("TAG", "insertStoryIntoDatabase: $post")
+//            Log.d("TAG", "insertStoryIntoDatabase: $post")
 
             Toast.makeText(this, "Story added successfully", Toast.LENGTH_SHORT).show()
 
-            startActivity(Intent(this, StoriesActivity::class.java))
+            startActivity(Intent(this, PostsActivity::class.java))
         } else {
             story_title_et.error = "This field cannot be empty"
             story_body_et.error = "This field cannot be empty"
@@ -60,4 +60,4 @@ class AddStory : AppCompatActivity() {
             body
         ))
     }
-}
+    }

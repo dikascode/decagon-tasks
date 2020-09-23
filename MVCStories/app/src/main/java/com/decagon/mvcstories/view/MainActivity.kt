@@ -1,22 +1,18 @@
-package com.decagon.mvvmstories.view
+package com.decagon.mvcstories.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import com.decagon.mvvmstories.R
+import com.decagon.mvcstories.R
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /**
-         * Splash screen implementation
-         */
         Handler().postDelayed({
-            startActivity(Intent(this, StoriesActivity::class.java))
+            startActivity(Intent(this, PostsActivity::class.java))
             finish()
         }, 2000)
 
