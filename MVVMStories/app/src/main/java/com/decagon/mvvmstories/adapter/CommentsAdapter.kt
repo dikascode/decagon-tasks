@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.mvvmstories.R
-import com.decagon.mvvmstories.model.Comments
+import com.decagon.mvvmstories.data.Comments
 import kotlinx.android.synthetic.main.card_layout_comment.view.*
 
 class CommentsAdapter(private val context: Context) :
@@ -33,7 +33,7 @@ class CommentsAdapter(private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.username.text = list[position].body
+        holder.username.text = list[position].name
         holder.body.text = list[position].body
         val id = list[position].id
     }

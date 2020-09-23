@@ -4,10 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "post_table")
-data class Post (
+data class Stories (
     @PrimaryKey(autoGenerate = true)
-    val userId: Int,
     val id: Int,
+    val userId: Int,
     val title: String,
     val body: String
 )

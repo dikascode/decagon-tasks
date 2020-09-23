@@ -1,13 +1,47 @@
 package com.decagon.mvvmstories.repository
 
 import androidx.lifecycle.LiveData
-import com.decagon.mvvmstories.data.Post
+import androidx.lifecycle.MutableLiveData
+import com.decagon.mvvmstories.data.Stories
 import com.decagon.mvvmstories.data.StoryDao
+import com.decagon.mvvmstories.network.RetroInstance
+import com.decagon.mvvmstories.network.RetroService
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class RoomStoryRepository(private val storyDao: StoryDao) {
-    val readAllPost: LiveData<List<Post>> = storyDao.readAllPosts()
+    val readAllStories: LiveData<List<Stories>> = storyDao.readAllPosts()
 
-    suspend fun addStory(post: Post) {
+    suspend fun addStory(post: Stories) {
         storyDao.addStory(post)
     }
+
+    fun readStory(id: Int): LiveData<Stories> {
+        return storyDao.readSinglePost(id)
+    }
+
+
+
+    //Retrofit instance of Service
+    private val retroInstance: RetroService =
+        RetroInstance.getRetroInstance().create(RetroService::class.java)
+
+
+    fun displayStories() {
+
+        GlobalScope.launch {
+            val resultList = retroInstance.getPosts().body()
+
+            if (resultList != null) {
+                for (result in resultList) {
+                    addStory(result)
+                }
+            }
+
+        }
+
+    }
+
+
+
 }

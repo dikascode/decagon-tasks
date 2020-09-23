@@ -54,73 +54,25 @@
         android:id="@+id/comments_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="10dp"
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/comment_et"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:hint="Enter a comment"
+        android:padding="10dp"
         android:background="@android:color/white"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-    >
-
-        <!--        Material design edit text-->
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/story_title_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
-            app:errorEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/story_body_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            app:errorEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/comment_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="comment"
-            app:errorEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/add_comment_btn"
-            style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:text="Add Comment"
-            android:textSize="22sp"
-            app:icon="@drawable/ic_add_24" />
-
-
-    </LinearLayout>
-
+        android:layout_gravity="bottom"/>
+    <Button
+        android:id="@+id/add_comment_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryDark"
+        android:drawableRight="@drawable/send_24"
+        android:layout_gravity="bottom|right"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

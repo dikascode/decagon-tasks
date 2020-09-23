@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.mvvmstories.R
-import com.decagon.mvvmstories.model.Stories
+import com.decagon.mvvmstories.data.Stories
 import com.decagon.mvvmstories.view.SingleStory
 import kotlinx.android.synthetic.main.card_layout_story.view.*
 
@@ -18,9 +18,15 @@ class StoryAdapter(private val context: Context) :
     lateinit var intent: Intent
 
     private var list: List<Stories> = ArrayList()
+    private var mList: List<com.decagon.mvvmstories.data.Stories> = ArrayList()
 
-    fun setStoryList(list: List<Stories>) {
-        this.list = list
+//    fun setStoryList(list: List<Stories>) {
+//        this.list = list
+//        notifyDataSetChanged()
+//    }
+
+    fun setRoomStoryList(list: List<com.decagon.mvvmstories.data.Stories>) {
+        this.mList = list
         notifyDataSetChanged()
     }
 
@@ -33,13 +39,16 @@ class StoryAdapter(private val context: Context) :
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return (mList.size)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.title.text = list[position].title
-        holder.body.text = list[position].body.substring(0, 50)
-        val id = list[position].id
+//        holder.title.text = mList[position].title
+//        holder.body.text = mList[position].body
+
+        holder.title.text = mList[position].title
+        holder.body.text = mList[position].body
+        var id = mList[position].id
 
         holder.card_view.setOnClickListener {
             intent = Intent(context, SingleStory::class.java)

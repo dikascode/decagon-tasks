@@ -39,24 +39,32 @@ class FetchRepository(val application: Application) {
         showProgress.value = true
 
         val call = retroInstance.getStories()
-
-        call.enqueue(object : Callback<List<Stories>> {
-            override fun onFailure(call: Call<List<Stories>>, t: Throwable) {
-                showProgress.value = false
-                Toast.makeText(application, "Failed", Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "onFailure: $t")
-            }
-
-            override fun onResponse(
-                call: Call<List<Stories>>,
-                response: Response<List<Stories>>
-            ) {
-                showProgress.value = false
-                storyList.value = response.body()
-//                Log.d(TAG, "onResponse: ${response.body()}")
-            }
-
-        })
+//
+//        call.enqueue(object : Callback<List<Stories>> {
+//            override fun onFailure(call: Call<List<Stories>>, t: Throwable) {
+//                showProgress.value = false
+//                Toast.makeText(application, "Failed", Toast.LENGTH_SHORT).show()
+//                Log.d(TAG, "onFailure: $t")
+//            }
+//
+//            override fun onResponse(
+//                call: Call<List<Stories>>,
+//                response: Response<List<Stories>>
+//            ) {
+//                showProgress.value = false
+//
+//                val list = response.body()
+//
+//                if (list != null) {
+//                    for (i in list) {
+//
+//                    }
+//                }
+//                storyList.value = response.body()
+////                Log.d(TAG, "onResponse: ${response.body()}")
+//            }
+//
+//        })
 
     }
 
@@ -68,19 +76,19 @@ class FetchRepository(val application: Application) {
         showProgress.value = true
         val call = retroInstance.getStory(id)
 
-        call.enqueue(object : retrofit2.Callback<Stories> {
-            override fun onFailure(call: Call<Stories>, t: Throwable) {
-                showProgress.value = false
-                Log.d(TAG, "onFailure: $t")
-            }
+//        call.enqueue(object : retrofit2.Callback<Stories> {
+//            override fun onFailure(call: Call<Stories>, t: Throwable) {
+//                showProgress.value = false
+//                Log.d(TAG, "onFailure: $t")
+//            }
 
-            override fun onResponse(call: Call<Stories>, response: Response<Stories>) {
-                showProgress.value = false
-                singleStory.value = response.body()
-//                Log.d(TAG, "onResponse search: ${response.body()}")
-            }
-
-        })
+//            override fun onResponse(call: Call<Stories>, response: Response<Stories>) {
+//                showProgress.value = false
+//                singleStory.value = response.body()
+////                Log.d(TAG, "onResponse search: ${response.body()}")
+//            }
+//
+//        })
 
     }
 
@@ -88,23 +96,23 @@ class FetchRepository(val application: Application) {
     /**
      * Get comments for a post from end point call to update ViewModel
      */
-    fun getComments(id: Int) {
-        val call = retroInstance.getComments(id)
-
-        call.enqueue(object : Callback<List<Comments>> {
-            override fun onFailure(call: Call<List<Comments>>, t: Throwable) {
-                Log.d(TAG, "onFailure Get comments: $t")
-            }
-
-            override fun onResponse(
-                call: Call<List<Comments>>,
-                response: Response<List<Comments>>
-            ) {
-                commentsList.value = response.body()
-//                Log.d(TAG, "Success Get comments: ${response.body()}")
-            }
-
-        })
-    }
+//    suspend fun getComments(id: Int) {
+//        val call = retroInstance.getComments(id)
+//
+//        call.enqueue(object : Callback<List<Comments>> {
+//            override fun onFailure(call: Call<List<Comments>>, t: Throwable) {
+//                Log.d(TAG, "onFailure Get comments: $t")
+//            }
+//
+//            override fun onResponse(
+//                call: Call<List<Comments>>,
+//                response: Response<List<Comments>>
+//            ) {
+//                commentsList.value = response.body()
+////                Log.d(TAG, "Success Get comments: ${response.body()}")
+//            }
+//
+//        })
+//    }
 }
 

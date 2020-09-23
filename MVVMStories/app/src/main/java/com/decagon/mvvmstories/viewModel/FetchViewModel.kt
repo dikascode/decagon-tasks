@@ -36,7 +36,7 @@ class FetchViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun getComments(id: Int) {
-        repository.getComments(id)
+//        repository.getComments(id)
     }
 
 

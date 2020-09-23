@@ -8,16 +8,16 @@ import androidx.room.RoomDatabase
 /**
  * Create database
  */
-@Database(entities = [Stories::class], version = 1, exportSchema = false)
-abstract class StoryDatabase: RoomDatabase() {
+@Database(entities = [Comments::class], version = 1, exportSchema = false)
+abstract class CommentsDatabase: RoomDatabase() {
 
-    abstract fun storyDao(): StoryDao
+    abstract fun commentDao(): CommentDao
 
     companion object{
         @Volatile
-        private var INSTANCE: StoryDatabase? = null
+        private var INSTANCE: CommentsDatabase? = null
 
-        fun getDatabase(context: Context): StoryDatabase{
+        fun getDatabase(context: Context): CommentsDatabase{
             val tempInstance = INSTANCE
             if(tempInstance != null) {
                 return tempInstance
@@ -26,8 +26,8 @@ abstract class StoryDatabase: RoomDatabase() {
             synchronized(this){
                 val instance =  Room.databaseBuilder(
                     context.applicationContext,
-                    StoryDatabase::class.java,
-                    "story_database"
+                    CommentsDatabase::class.java,
+                    "comments_database"
                 ).build()
                 INSTANCE = instance
                 return instance

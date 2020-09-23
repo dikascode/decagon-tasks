@@ -10,8 +10,11 @@ import androidx.room.Query
 interface StoryDao{
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addStory(story: Post)
+    suspend fun addStory(story: Stories)
 
-    @Query("SELECT * FROM post_table ORDER BY id ASC")
-    fun readAllPosts(): LiveData<List<Post>>
+    @Query("SELECT * FROM post_table ORDER BY id DESC")
+    fun readAllPosts(): LiveData<List<Stories>>
+
+    @Query("SELECT * FROM post_table WHERE id = :id")
+    fun readSinglePost(id: Int): LiveData<Stories>
 }
