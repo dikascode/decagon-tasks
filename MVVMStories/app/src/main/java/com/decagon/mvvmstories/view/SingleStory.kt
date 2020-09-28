@@ -27,11 +27,19 @@ class SingleStory : AppCompatActivity() {
         commentViewModel = ViewModelProvider(this).get(RoomCommentViewModel::class.java)
         storyViewModel = ViewModelProvider(this).get(RoomStoryViewModel::class.java)
 
+        /**
+         * Get post id from intent
+         */
         val id = intent.getIntExtra("STORY_ID", 1)
 
-
+        /**
+         * Show unique story
+         */
         showStory(id)
 
+        /**
+         * Show unique comments for a story
+         */
         showComments(id)
 
         /**
@@ -41,6 +49,9 @@ class SingleStory : AppCompatActivity() {
         insertCommentIntoRoom(id)
     }
 
+    /**
+     * Insert comment into room implementation
+     */
     private fun insertCommentIntoRoom(id: Int) {
         add_comment_btn.setOnClickListener {
             val username = "user1"

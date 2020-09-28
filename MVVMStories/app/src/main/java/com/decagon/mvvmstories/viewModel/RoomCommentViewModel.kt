@@ -20,7 +20,7 @@ class RoomCommentViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     /**
-     * setup add user and rn in the background
+     * setup add user and run in the background
      */
     fun addComment(comment: Comments) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -28,10 +28,16 @@ class RoomCommentViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    /**
+     * setup add comment
+     */
     fun getCommentFromRoom(id: Int): LiveData<List<Comments>> {
         return repository.getCommentFromRoom(id)
     }
 
+    /**
+     * setup display comments from model
+     */
     fun displayComments(id: Int) {
         repository.fetchCommentsFromEndpoint(id)
     }

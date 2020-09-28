@@ -29,9 +29,10 @@ class PostActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra("STORY_ID", 1)
 
-
+        //Show single post
         showStory(id)
 
+        //Show comments for a post
         showComments(id)
 
         /**
@@ -47,7 +48,7 @@ class PostActivity : AppCompatActivity() {
             val email = "user2@gmail.com"
             val comment = comment_et.text.toString()
 
-            if(comment.isEmpty()){
+            if (comment.isEmpty()) {
                 Toast.makeText(this, "Please write a comment", Toast.LENGTH_SHORT).show()
                 comment_et.error = "Please write a comment"
             } else {
@@ -61,7 +62,6 @@ class PostActivity : AppCompatActivity() {
 
                 Toast.makeText(this, "Comment added successfully", Toast.LENGTH_SHORT).show()
             }
-
 
 
         }

@@ -31,7 +31,9 @@ class RoomStoryViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-
+    /**
+     * Source stories from model
+     */
     fun readStory(id: Int): LiveData<Stories> {
         return repository.readStory(id)
     }
@@ -40,6 +42,9 @@ class RoomStoryViewModel(application: Application) : AndroidViewModel(applicatio
         repository.displayStories()
     }
 
+    /**
+     * setup filter post
+     */
     fun getSearchPosts(search: String): LiveData<List<Stories>> {
        return repository.getSearchPost(search)
     }

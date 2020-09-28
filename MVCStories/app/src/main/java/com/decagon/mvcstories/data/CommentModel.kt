@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import com.decagon.mvcstories.database.CommentDao
 import com.decagon.mvcstories.network.RetroInstance
 import com.decagon.mvcstories.network.RetroService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class CommentModel(private val commentDao: CommentDao) {
@@ -26,7 +28,7 @@ class CommentModel(private val commentDao: CommentDao) {
     //Comments from endpoint call
     fun fetchCommentsFromEndpoint(id: Int) {
 
-        GlobalScope.launch {
+        MainScope().launch(Dispatchers.IO)  {
             val resultList = retroInstance.getComments(id).body()
 
             //Save each comment to Room database
