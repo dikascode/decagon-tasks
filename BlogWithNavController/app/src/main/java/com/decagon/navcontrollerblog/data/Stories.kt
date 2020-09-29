@@ -2,6 +2,7 @@ package com.decagon.navcontrollerblog.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "post_table")
 data class Stories (
@@ -10,4 +11,4 @@ data class Stories (
     val userId: Int,
     val title: String,
     val body: String
-)
+): Serializable

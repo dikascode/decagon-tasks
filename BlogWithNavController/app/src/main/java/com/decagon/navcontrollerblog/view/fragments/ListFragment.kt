@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,12 +33,16 @@ class ListFragment : Fragment(), RecyclerViewClickInterface {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list, container, false)
 
-        //Instance of all Daos
+        //Instance of all DAOs
         val storyDao = BlogDatabase.getDatabase(view.context).storyDao()
         val commentDao = BlogDatabase.getDatabase(view.context).commentDao()
 
-        //Recyclerview
+        /**
+         *  Recyclerview
+         */
+
         adapter = PostsListAdapter(view.context)
+
         val recyclerView = view.rv_stories
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -52,7 +57,7 @@ class ListFragment : Fragment(), RecyclerViewClickInterface {
         val repository = RoomRepositoryImpl(storyDao, commentDao, retroInstance)
         val viewModelFactory = ViewModelFactory(repository)
 
-
+        //Post viewModel instance
         storyViewModel =
             ViewModelProvider(this, viewModelFactory).get(RoomStoryViewModel::class.java)
 
@@ -115,8 +120,19 @@ class ListFragment : Fragment(), RecyclerViewClickInterface {
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onItemClicked(position: Int) {
-        findNavController().navigate(R.id.action_listFragment_to_singlePostFragment)
+    //RecyclerViewClickInterface method
+    override fun onItemClicked(position: Int, post: Stories) {
+        /**
+         * Transfer serialized Post object
+         */
+        val bundle = bundleOf(
+            "singlePost" to post
+        )
+
+        findNavController().navigate(
+            R.id.action_listFragment_to_singlePostFragment,
+            bundle
+        )
     }
 
 }
