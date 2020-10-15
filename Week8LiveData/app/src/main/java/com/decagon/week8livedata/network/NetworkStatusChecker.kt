@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.decagon.week8livedata.network
 
 
@@ -14,6 +12,7 @@ import android.os.Build
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import com.decagon.week8livedata.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,9 +23,10 @@ class NetworkStatusChecker(private val context: Context) : LiveData<Boolean>() {
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
-    val progressBar = (context as Activity).findViewById<ProgressBar>(R.id.progressBar)
-    val textView = (context as Activity).findViewById<TextView>(R.id.textView)
+//    val progressBar = (context as Activity).findViewById<ProgressBar>(R.id.progressBar)
+//    val textView = (context as Activity).findViewById<TextView>(R.id.textView)
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onActive() {
 
         super.onActive()
@@ -84,18 +84,28 @@ class NetworkStatusChecker(private val context: Context) : LiveData<Boolean>() {
     }
 
     private val networkReceiver = object : BroadcastReceiver() {
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         override fun onReceive(p0: Context?, p1: Intent?) {
             updateConnection()
         }
     }
 
-    @Suppress("DEPRECATION")
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun updateConnection() {
-        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
-        progressBar.visibility = View.GONE
-        textView.visibility = View.GONE
-        postValue(activeNetwork?.isConnected == true)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val activeNetwork =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            postValue(
+                activeNetwork?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
+            )
+        } else {
+            val activeNetwork = connectivityManager.activeNetworkInfo
+            postValue(activeNetwork?.isConnected == true)
+        }
 
+//        progressBar.visibility = View.GONE
+//        textView.visibility = View.GONE
     }
 }

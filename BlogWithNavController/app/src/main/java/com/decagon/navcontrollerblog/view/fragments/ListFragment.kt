@@ -37,12 +37,12 @@ class ListFragment : Fragment(), RecyclerViewClickInterface {
         val storyDao = BlogDatabase.getDatabase(view.context).storyDao()
         val commentDao = BlogDatabase.getDatabase(view.context).commentDao()
 
-        /**
-         *  Recyclerview
-         */
-
+        //Adapter instance
         adapter = PostsListAdapter(view.context)
 
+        /**
+         * Recyclerview
+         */
         val recyclerView = view.rv_stories
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(view.context)

@@ -5,6 +5,9 @@ import com.decagon.navcontrollerblog.data.Comments
 import com.decagon.navcontrollerblog.data.Stories
 
 interface BlogRepository {
+    /**
+     * interface methods for post and comments to be implemented
+     */
     suspend fun addStory(post: Stories)
 
     fun readAllStories(): LiveData<List<Stories>>

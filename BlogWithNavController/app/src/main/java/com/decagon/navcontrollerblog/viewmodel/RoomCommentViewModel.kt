@@ -6,14 +6,15 @@ import androidx.lifecycle.viewModelScope
 import com.decagon.navcontrollerblog.data.CommentDao
 import com.decagon.navcontrollerblog.data.Comments
 import com.decagon.navcontrollerblog.data.StoryDao
+import com.decagon.navcontrollerblog.repository.BlogRepository
 import com.decagon.navcontrollerblog.repository.RoomRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RoomCommentViewModel(var repositoryImpl: RoomRepositoryImpl): ViewModel() {
+class RoomCommentViewModel(var repositoryImpl: BlogRepository): ViewModel() {
 
     /**
-     * setup add user and run in the background
+     * setup add comment
      */
     fun addComment(comment: Comments) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -22,16 +23,16 @@ class RoomCommentViewModel(var repositoryImpl: RoomRepositoryImpl): ViewModel() 
     }
 
     /**
-     * setup add comment
+     * setup display comments from model
      */
     fun getCommentFromRoom(id: Int): LiveData<List<Comments>> {
         return repositoryImpl.getCommentFromRoom(id)
     }
 
     /**
-     * setup display comments from model
+     * Fetch comment for each post from endpoint n save to room
      */
-    fun displayComments(id: Int) {
+    fun fetchCommentsFromEndpoint(id: Int) {
         repositoryImpl.fetchCommentsFromEndpoint(id)
     }
 }

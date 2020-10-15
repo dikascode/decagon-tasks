@@ -12,7 +12,7 @@
         android:focusableInTouchMode="true"
         tools:context=".view.AddStory">
 
-
+        <!--New Post title edit text-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/story_title_et"
             android:layout_width="match_parent"
@@ -31,6 +31,7 @@
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!--New Post Body edit text-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/story_body_et"
             android:layout_width="match_parent"
@@ -51,6 +52,7 @@
                 android:singleLine="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
+<!--        Add post button-->
         <Button
             android:id="@+id/add_story_btn"
             android:layout_width="0dp"

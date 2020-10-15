@@ -17,6 +17,7 @@
             android:id="@+id/action_listFragment_to_singlePostFragment"
             app:destination="@id/singlePostFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/addFragment"
         android:name="com.decagon.navcontrollerblog.view.fragments.AddFragment"
@@ -26,6 +27,7 @@
             android:id="@+id/action_addFragment_to_listFragment"
             app:destination="@id/listFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/singlePostFragment"
         android:name="com.decagon.navcontrollerblog.view.fragments.SinglePostFragment"
@@ -41,16 +43,24 @@
             android:name="singlePost"
             app:argType="com.decagon.navcontrollerblog.data.Stories" />
     </fragment>
+
     <fragment
         android:id="@+id/addCommentFragment"
         android:name="com.decagon.navcontrollerblog.view.fragments.AddCommentFragment"
-        android:label="fragment_add_comment"
+        android:label="Add Comment"
         tools:layout="@layout/fragment_add_comment">
         <action
             android:id="@+id/action_addCommentFragment_to_singlePostFragment"
-            app:destination="@id/singlePostFragment" />
+            app:destination="@id/singlePostFragment"
+            app:popUpTo="@+id/listFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_addCommentFragment_to_singlePostFragment2"
-            app:destination="@id/singlePostFragment" />
+            app:destination="@id/singlePostFragment"
+            app:popUpTo="@+id/listFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="singlePostDetails"
+            app:argType="com.decagon.navcontrollerblog.data.Stories" />
     </fragment>
 </navigation>
